@@ -1,3 +1,3 @@
 # Scrum-Masters-Inc.
-Shane Mulcahy
+Shane Mulcahy is cool
 Ian Weiss
