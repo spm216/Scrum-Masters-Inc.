@@ -1,4 +1,4 @@
 # Scrum-Masters-Inc.
 Shane Mulcahy is cool
-Ian Weiss
+Ian Weiss is not
 Steve Cuzzi
