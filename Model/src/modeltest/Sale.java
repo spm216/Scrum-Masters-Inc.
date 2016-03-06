@@ -20,30 +20,30 @@ class Sale {
     private int total;
     
     Sale(Date t) {
-        isComplete = false;
-        time = t;
-        salesLine = new ArrayList<SalesLineItem>();
-        total = 0;
+        this.isComplete = false;
+        this.time = t;
+        this.salesLine = new ArrayList<SalesLineItem>();
+        this.total = 0;
     }
     
     void makeLineItem(String id, int qty) {
         SalesLineItem item = new SalesLineItem(id, qty);
         if(item.isValid()) {
-            salesLine.add(item);
-            total += item.getSubtotal();
+            this.salesLine.add(item);
+            this.total += item.getSubtotal();
         }
     }
     
     int getTotal() {
-        return total;
+        return this.total;
     }
     
     int makePayment(int amount) {
-        becomeComplete();
-        return amount - total;
+        this.becomeComplete();
+        return amount - this.total;
     }
     
     void becomeComplete() {
-        isComplete = true;
+        this.isComplete = true;
     }
 }

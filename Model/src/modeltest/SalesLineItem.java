@@ -9,6 +9,20 @@ package modeltest;
  *
  * @author Ian W
  */
-public class SalesLineItem {
+class SalesLineItem {
+    private ProductDescription item;
+    private int qty;
     
+    SalesLineItem(String id, int qty) {
+        this.qty = qty;
+        this.item = new ProductDescription(id);
+    }
+    
+    int getSubtotal() {
+        return this.item.getSalePrice() * this.qty;
+    }
+    
+    boolean isValid() {
+        return this.item.isValid();
+    }
 }

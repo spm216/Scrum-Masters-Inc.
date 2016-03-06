@@ -16,7 +16,7 @@ public class Register {
     private int regNum;
     
     Register() {
-        regNum = 0;
+        this.regNum = 0;
     }
     
     //creates new sale instance

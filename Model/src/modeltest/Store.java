@@ -19,24 +19,24 @@ class Store {
     private Register reg;
     
     Store(String add, String n) {
-        address = add;
-        name = n;
-        saleList = new ArrayList<Sale>();
-        reg = new Register();
+        this.address = add;
+        this.name = n;
+        this.saleList = new ArrayList<Sale>();
+        this.reg = new Register();
     }
     
     //getters for class properties
     String getAddress() {
-        return address;
+        return this.address;
     }
     
     String getName() {
-        return name;
+        return this.name;
     }
     
     //adds new sale to list of sales
     void addSale() {
-        Sale sale = reg.makeNewSale(new Date());
-        saleList.add(sale);
+        Sale sale = this.reg.makeNewSale(new Date());
+        this.saleList.add(sale);
     }
 }
