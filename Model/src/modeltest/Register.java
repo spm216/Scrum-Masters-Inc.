@@ -25,7 +25,14 @@ public class Register {
     }
     
     void enterItem(Sale sale, String id, int qty) {
-        String desc = ""; //place holder for database interaction
-        sale.makeLineItem(desc, qty);
+        sale.makeLineItem(id, qty);
+    }
+    
+    int endSale(Sale sale) {
+        return sale.getTotal();
+    }
+    
+    int makePayment(Sale sale, int amount) {
+        return sale.makePayment(amount);
     }
 }
