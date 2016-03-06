@@ -11,7 +11,7 @@ package modeltest;
  */
 class ProductDescription {
     private String desc;
-    private int salePrice;
+    private double salePrice;
     private String id;
     private boolean validItem;
     
@@ -26,7 +26,7 @@ class ProductDescription {
         return this.desc;
     }
     
-    int getSalePrice() {
+    double getSalePrice() {
         return this.salePrice;
     }
     

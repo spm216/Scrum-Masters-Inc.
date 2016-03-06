@@ -17,7 +17,7 @@ class Sale {
     private boolean isComplete;
     private Date time;
     private ArrayList<SalesLineItem> salesLine;
-    private int total;
+    private double total;
     
     Sale(Date t) {
         this.isComplete = false;
@@ -34,11 +34,11 @@ class Sale {
         }
     }
     
-    int getTotal() {
+    double getTotal() {
         return this.total;
     }
     
-    int makePayment(int amount) {
+    double makePayment(double amount) {
         this.becomeComplete();
         return amount - this.total;
     }

@@ -18,7 +18,7 @@ class SalesLineItem {
         this.item = new ProductDescription(id);
     }
     
-    int getSubtotal() {
+    double getSubtotal() {
         return this.item.getSalePrice() * this.qty;
     }
     

@@ -28,11 +28,11 @@ public class Register {
         sale.makeLineItem(id, qty);
     }
     
-    int endSale(Sale sale) {
+    double endSale(Sale sale) {
         return sale.getTotal();
     }
     
-    int makePayment(Sale sale, int amount) {
+    double makePayment(Sale sale, double amount) {
         return sale.makePayment(amount);
     }
 }
