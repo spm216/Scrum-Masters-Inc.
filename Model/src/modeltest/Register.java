@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Register {
     private int regNum;
+    private Sale sale;
     
     Register() {
         this.regNum = 0;
@@ -21,18 +22,19 @@ public class Register {
     
     //creates new sale instance
     Sale makeNewSale(Date time) {
-        return new Sale(time);
+        this.sale = new Sale(time);
+        return this.sale;
     }
     
-    void enterItem(Sale sale, String id, int qty) {
-        sale.makeLineItem(id, qty);
+    void enterItem(String id, int qty) {
+        this.sale.makeLineItem(id, qty);
     }
     
-    double endSale(Sale sale) {
-        return sale.getTotal();
+    double endSale() {
+        return this.sale.getTotal();
     }
     
-    double makePayment(Sale sale, double amount) {
-        return sale.makePayment(amount);
+    double makePayment(double amount) {
+        return this.sale.makePayment(amount);
     }
 }

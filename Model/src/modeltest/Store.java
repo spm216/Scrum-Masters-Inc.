@@ -34,6 +34,14 @@ class Store {
         return this.name;
     }
     
+    ArrayList<Sale> getSales() {
+        return this.saleList;
+    }
+    
+    Register getReg() {
+        return this.reg;
+    }
+    
     //adds new sale to list of sales
     void addSale() {
         Sale sale = this.reg.makeNewSale(new Date());
