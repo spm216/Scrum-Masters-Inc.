@@ -40,7 +40,6 @@ class Sale {
     }
     
     double makePayment(double amount) {
-        this.becomeComplete();
         return amount - this.total;
     }
     

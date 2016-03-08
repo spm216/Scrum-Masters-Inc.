@@ -34,8 +34,8 @@ public class Register {
         return sale.getTotal();
     }
     
-    public double endSale() {
-        return this.sale.getTotal();
+    public void endSale() {
+        sale.becomeComplete();
     }
     
     public double makePayment(double amount) {
