@@ -5,6 +5,7 @@
  */
 package proto;
 import modeltest.Register;
+import modeltest.SalesLineItem;
 import modeltest.Store;
 
 /**
@@ -14,6 +15,7 @@ import modeltest.Store;
 public class Orders extends javax.swing.JFrame {
     static Store store;
     Register reg;
+    SalesLineItem line;
     /**
      * Creates new form Orders
      * @param store
@@ -139,8 +141,9 @@ public class Orders extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
-        orderList.append(idTextField.getText()+ "(x"+qtyTextField.getText()+")\t" + "Total Over Here\n" );
+        line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
+        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getSubtotal());
+        //orderList.append(idTextField.getText()+ "(x"+qtyTextField.getText()+")\t" + "Total Over Here\n" );
         totalTextField.setText("Total Here");
     }//GEN-LAST:event_addButtonActionPerformed
                                           
