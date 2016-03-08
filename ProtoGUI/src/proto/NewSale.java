@@ -5,6 +5,9 @@
  */
 package proto;
 
+import modeltest.Register;
+import modeltest.Store;
+
 /**
  *
  * @author Shane
@@ -16,6 +19,9 @@ public class NewSale extends javax.swing.JFrame {
      */
     public NewSale() {
         initComponents();
+        Store store = new Store("Home", "Here");
+        store.addSale();
+        Register reg = store.getReg();
     }
 
     /**
