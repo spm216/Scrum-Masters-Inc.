@@ -26,12 +26,13 @@ class Sale {
         this.total = 0;
     }
     
-    void makeLineItem(String id, int qty) {
+    SalesLineItem makeLineItem(String id, int qty) {
         SalesLineItem item = new SalesLineItem(id, qty);
         if(item.isValid()) {
             this.salesLine.add(item);
             this.total += item.getSubtotal();
         }
+        return item;
     }
     
     double getTotal() {

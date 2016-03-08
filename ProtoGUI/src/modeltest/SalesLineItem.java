@@ -9,7 +9,7 @@ package modeltest;
  *
  * @author Ian W
  */
-class SalesLineItem {
+public class SalesLineItem {
     private ProductDescription item;
     private int qty;
     
@@ -18,8 +18,12 @@ class SalesLineItem {
         this.item = new ProductDescription(id);
     }
     
-    double getSubtotal() {
+    public double getSubtotal() {
         return this.item.getSalePrice() * this.qty;
+    }
+    
+    public String getDesc() {
+        return this.item.getDesc();
     }
     
     boolean isValid() {

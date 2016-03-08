@@ -26,11 +26,11 @@ public class Store {
     }
     
     //getters for class properties
-    String getAddress() {
+    public String getAddress() {
         return this.address;
     }
     
-    String getName() {
+    public String getName() {
         return this.name;
     }
     

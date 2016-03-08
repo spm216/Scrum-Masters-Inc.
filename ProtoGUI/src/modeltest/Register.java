@@ -26,15 +26,15 @@ public class Register {
         return this.sale;
     }
     
-    void enterItem(String id, int qty) {
-        this.sale.makeLineItem(id, qty);
+    public SalesLineItem enterItem(String id, int qty) {
+        return this.sale.makeLineItem(id, qty);
     }
     
-    double endSale() {
+    public double endSale() {
         return this.sale.getTotal();
     }
     
-    double makePayment(double amount) {
+    public double makePayment(double amount) {
         return this.sale.makePayment(amount);
     }
 }
