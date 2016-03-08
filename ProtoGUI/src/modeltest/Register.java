@@ -30,6 +30,10 @@ public class Register {
         return this.sale.makeLineItem(id, qty);
     }
     
+    public double getTotal() {
+        return sale.getTotal();
+    }
+    
     public double endSale() {
         return this.sale.getTotal();
     }
