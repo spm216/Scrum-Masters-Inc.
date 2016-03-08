@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package proto;
-
-import modeltest.Register;
 import modeltest.Store;
 
 /**
@@ -14,14 +12,13 @@ import modeltest.Store;
  */
 public class NewSale extends javax.swing.JFrame {
 
+    Store store;
     /**
      * Creates new form NewSale
      */
     public NewSale() {
         initComponents();
-        Store store = new Store("Home", "Here");
-        store.addSale();
-        Register reg = store.getReg();
+        store = new Store("Home", "Here");
     }
 
     /**
@@ -66,7 +63,7 @@ public class NewSale extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleActionPerformed
-        Orders f = new Orders();
+        Orders f = new Orders(store);
         f.pack();
         f.setVisible(true);
         dispose();

@@ -4,18 +4,24 @@
  * and open the template in the editor.
  */
 package proto;
+import modeltest.Register;
+import modeltest.Store;
 
 /**
  *
  * @author Shane
  */
 public class Orders extends javax.swing.JFrame {
-
+    static Store store;
+    Register reg;
     /**
      * Creates new form Orders
+     * @param store
      */
-    public Orders() {
+    public Orders(Store store) {
         initComponents();
+        Orders.store = store;
+        this.reg = store.getReg();
     }
 
     /**
@@ -133,8 +139,9 @@ public class Orders extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-       orderList.append(idTextField.getText()+ "(x)"+qtyTextField.getText()+"\t" + "Total Over Here\n" );
-       totalTextField.setText("Total Here");
+        
+        orderList.append(idTextField.getText()+ "(x"+qtyTextField.getText()+")\t" + "Total Over Here\n" );
+        totalTextField.setText("Total Here");
     }//GEN-LAST:event_addButtonActionPerformed
                                           
 
@@ -168,7 +175,7 @@ public class Orders extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Orders().setVisible(true);
+                new Orders(store).setVisible(true);
             }
         });
     }
