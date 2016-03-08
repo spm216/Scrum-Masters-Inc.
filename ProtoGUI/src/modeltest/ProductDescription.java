@@ -17,8 +17,8 @@ class ProductDescription {
     
     ProductDescription(String id) {
         this.id = id;
-        this.desc = ""; //placeholder for db interaction
-        this.salePrice = 0; //placeholder for db interaction
+        this.desc = "Banana"; //placeholder for db interaction
+        this.salePrice = 3; //placeholder for db interaction
         this.validItem = true; //true or false if it exists in db
     }
     
