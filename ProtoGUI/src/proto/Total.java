@@ -51,7 +51,7 @@ public class Total extends javax.swing.JFrame {
         paymentTextField = new javax.swing.JTextField();
         paymentButton = new javax.swing.JButton();
         changeLabel = new javax.swing.JLabel();
-        changeButton = new javax.swing.JTextField();
+        changeTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("totalFrame");
@@ -83,7 +83,7 @@ public class Total extends javax.swing.JFrame {
 
         changeLabel.setText("Change:");
 
-        changeButton.setEditable(false);
+        changeTextField.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +108,7 @@ public class Total extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(paymentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(changeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(changeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -138,7 +138,7 @@ public class Total extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(changeLabel)
-                            .addComponent(changeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(changeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addComponent(endSale)
                         .addGap(0, 38, Short.MAX_VALUE))
@@ -158,7 +158,7 @@ public class Total extends javax.swing.JFrame {
     }//GEN-LAST:event_endSaleActionPerformed
 
     private void paymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentButtonActionPerformed
-        // TODO add your handling code here:
+        changeTextField.setText(reg.makePayment(Double.parseDouble(paymentTextField.getText()))+"");
     }//GEN-LAST:event_paymentButtonActionPerformed
 
     /**
@@ -197,8 +197,8 @@ public class Total extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField changeButton;
     private javax.swing.JLabel changeLabel;
+    private javax.swing.JTextField changeTextField;
     private javax.swing.JButton endSale;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea orderList;
