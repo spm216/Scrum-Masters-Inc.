@@ -5,21 +5,32 @@
  */
 package proto;
 
+import modeltest.Register;
+import modeltest.Store;
+
 /**
  *
  * @author Shane
  */
 public class Total extends javax.swing.JFrame {
 
+    static Store store;
+    Register reg;
     /**
      * Creates new form Total
      */
-    public Total() {
+    public Total(Store store) {
         initComponents();
+        this.store = store;
+        this.reg = this.store.getReg();
     }
     
     public void setTotalTextField(String total){
         totalTextField.setText(total);
+    }
+    
+    public void setOrderTextArea(String text){
+        orderList.setText(text);
     }
 
     /**
@@ -33,9 +44,14 @@ public class Total extends javax.swing.JFrame {
 
         totalLabel = new javax.swing.JLabel();
         totalTextField = new javax.swing.JTextField();
-        newSaleButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        endSale = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        orderList = new javax.swing.JTextArea();
+        paymentLabel = new javax.swing.JLabel();
+        paymentTextField = new javax.swing.JTextField();
+        paymentButton = new javax.swing.JButton();
+        changeLabel = new javax.swing.JLabel();
+        changeButton = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("totalFrame");
@@ -44,61 +60,106 @@ public class Total extends javax.swing.JFrame {
 
         totalTextField.setEditable(false);
 
-        newSaleButton.setText("End Sale");
-        newSaleButton.addActionListener(new java.awt.event.ActionListener() {
+        endSale.setText("End Sale");
+        endSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newSaleButtonActionPerformed(evt);
+                endSaleActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Change due:");
+        orderList.setEditable(false);
+        orderList.setColumns(20);
+        orderList.setRows(5);
+        jScrollPane1.setViewportView(orderList);
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("jTextField1");
+        paymentLabel.setText("Payment:");
+
+        paymentButton.setText("Submit");
+        paymentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentButtonActionPerformed(evt);
+            }
+        });
+
+        changeLabel.setText("Change:");
+
+        changeButton.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(totalLabel)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(totalLabel)
+                                    .addComponent(paymentLabel)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(changeLabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(newSaleButton)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(paymentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(changeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(endSale)
+                                .addGap(48, 48, 48))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(paymentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(202, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalLabel)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(newSaleButton)
-                .addGap(31, 31, 31))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totalLabel))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(paymentLabel)
+                            .addComponent(paymentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addComponent(paymentButton)
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(changeLabel)
+                            .addComponent(changeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(endSale)
+                        .addGap(0, 38, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newSaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleButtonActionPerformed
-        NewSale f = new NewSale();
+    private void endSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endSaleActionPerformed
+        reg.endSale();
+        NewSaleLoop f = new NewSaleLoop(store);
         f.pack();
         f.setVisible(true);
         dispose();
-    }//GEN-LAST:event_newSaleButtonActionPerformed
+    }//GEN-LAST:event_endSaleActionPerformed
+
+    private void paymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,15 +191,20 @@ public class Total extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Total().setVisible(true);
+                new Total(store).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton newSaleButton;
+    private javax.swing.JTextField changeButton;
+    private javax.swing.JLabel changeLabel;
+    private javax.swing.JButton endSale;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea orderList;
+    private javax.swing.JButton paymentButton;
+    private javax.swing.JLabel paymentLabel;
+    private javax.swing.JTextField paymentTextField;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalTextField;
     // End of variables declaration//GEN-END:variables

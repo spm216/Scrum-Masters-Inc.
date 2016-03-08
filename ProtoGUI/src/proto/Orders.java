@@ -25,7 +25,7 @@ public class Orders extends javax.swing.JFrame {
         initComponents();
         Orders.store = store;
         this.reg = store.getReg();
-        reg.makeNewSale(new Date());
+        store.addSale();
     }
 
     /**
@@ -135,8 +135,9 @@ public class Orders extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        Total f = new Total();
+        Total f = new Total(store);
         f.setTotalTextField(totalTextField.getText());
+        f.setOrderTextArea(orderList.getText());
         f.pack();
         f.setVisible(true);
         dispose();
@@ -144,8 +145,8 @@ public class Orders extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getSubtotal());
-        totalTextField.setText("Total Here");
+        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getSubtotal() + "\n");
+        totalTextField.setText(reg.getTotal()+"");
     }//GEN-LAST:event_addButtonActionPerformed
                                           
 
