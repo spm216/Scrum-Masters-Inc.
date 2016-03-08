@@ -21,7 +21,7 @@ public class Register {
     }
     
     //creates new sale instance
-    Sale makeNewSale(Date time) {
+    public Sale makeNewSale(Date time) {
         this.sale = new Sale(time);
         return this.sale;
     }

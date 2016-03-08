@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package proto;
+import java.util.Date;
 import modeltest.Register;
 import modeltest.SalesLineItem;
 import modeltest.Store;
@@ -24,6 +25,7 @@ public class Orders extends javax.swing.JFrame {
         initComponents();
         Orders.store = store;
         this.reg = store.getReg();
+        reg.makeNewSale(new Date());
     }
 
     /**
@@ -143,7 +145,6 @@ public class Orders extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
         orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getSubtotal());
-        //orderList.append(idTextField.getText()+ "(x"+qtyTextField.getText()+")\t" + "Total Over Here\n" );
         totalTextField.setText("Total Here");
     }//GEN-LAST:event_addButtonActionPerformed
                                           
