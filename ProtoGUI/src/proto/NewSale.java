@@ -63,7 +63,7 @@ public class NewSale extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleActionPerformed
-        Orders f = new Orders(store);
+        Login f = new Login(store);
         f.pack();
         f.setVisible(true);
         dispose();

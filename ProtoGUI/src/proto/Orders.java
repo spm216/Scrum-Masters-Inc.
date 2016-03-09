@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package proto;
-import java.util.Date;
 import modeltest.Register;
 import modeltest.SalesLineItem;
 import modeltest.Store;
@@ -47,6 +46,8 @@ public class Orders extends javax.swing.JFrame {
         submitButton = new javax.swing.JButton();
         totalLabel = new javax.swing.JLabel();
         totalTextField = new javax.swing.JTextField();
+        userLabel = new javax.swing.JLabel();
+        userTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("addOrder");
@@ -78,19 +79,28 @@ public class Orders extends javax.swing.JFrame {
 
         totalTextField.setEditable(false);
 
+        userLabel.setText("Cashier ID:");
+
+        userTextField.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(totalLabel)
+                            .addGap(18, 18, 18)
+                            .addComponent(totalTextField))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(totalLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(totalTextField))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(userLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,7 +119,11 @@ public class Orders extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userLabel)
+                    .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -143,6 +157,10 @@ public class Orders extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
 
+    public void setUserTextField(String id) {
+        userTextField.setText(id);
+    }
+    
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
         orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\n");
@@ -196,5 +214,7 @@ public class Orders extends javax.swing.JFrame {
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalTextField;
+    private javax.swing.JLabel userLabel;
+    private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables
 }
