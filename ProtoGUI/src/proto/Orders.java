@@ -145,8 +145,8 @@ public class Orders extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getSubtotal() + "\n");
-        totalTextField.setText(reg.getTotal()+"");
+        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\n");
+        totalTextField.setText(String.format("%5.2f", reg.getTotal()));
     }//GEN-LAST:event_addButtonActionPerformed
                                           
 

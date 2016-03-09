@@ -158,7 +158,7 @@ public class Total extends javax.swing.JFrame {
     }//GEN-LAST:event_endSaleActionPerformed
 
     private void paymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentButtonActionPerformed
-        changeTextField.setText(reg.makePayment(Double.parseDouble(paymentTextField.getText()))+"");
+        changeTextField.setText(String.format("%5.2f", reg.makePayment(Double.parseDouble(paymentTextField.getText()))));
     }//GEN-LAST:event_paymentButtonActionPerformed
 
     /**
