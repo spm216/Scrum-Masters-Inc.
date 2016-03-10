@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package modeltest;
+import java.sql.*;
 
 /**
  *
@@ -14,12 +15,29 @@ class ProductDescription {
     private double salePrice;
     private String id;
     private boolean validItem;
+    Statement s;
+    String sql;
+    ResultSet rs = null;
     
-    ProductDescription(String id) {
-        this.id = id;
-        this.desc = "Banana"; //placeholder for db interaction
+    ProductDescription(String id) throws ClassNotFoundException, SQLException {
+        Connection con=null;
+        Class.forName("org.apache.derby.jdbc.ClientDriver");
+        DriverManager.getConnection("jdbc:derby://localhost:1527/orbdb", "root", "root");
+        Statement s=con.createStatement();
+        String q;
+        ResultSet result;
+        sql = "SELECT name, price FROM items where id = " + id;
+        rs = s.executeQuery(sql);
+        this.desc = rs.getString("name");
+        this.salePrice = rs.getDouble("price");
         this.salePrice = 3; //placeholder for db interaction
-        this.validItem = true; //true or false if it exists in db
+        if (desc == null){
+            this.validItem = false;
+        }else{
+            this.validItem = true; //true or false if it exists in db
+        }
+        s.close();
+        con.close();
     }
     
     String getDesc() {

@@ -5,6 +5,8 @@
  */
 package modeltest;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Ian W
@@ -13,7 +15,7 @@ public class SalesLineItem {
     private ProductDescription item;
     private int qty;
     
-    SalesLineItem(String id, int qty) {
+    SalesLineItem(String id, int qty) throws ClassNotFoundException, SQLException {
         this.qty = qty;
         this.item = new ProductDescription(id);
     }

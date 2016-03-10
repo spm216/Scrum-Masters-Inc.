@@ -19,6 +19,7 @@ public class NewSale extends javax.swing.JFrame {
     public NewSale() {
         initComponents();
         store = new Store("Home", "Here");
+        
     }
 
     /**
