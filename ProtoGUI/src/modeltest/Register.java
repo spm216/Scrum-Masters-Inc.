@@ -5,6 +5,7 @@
  */
 package modeltest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,7 +27,7 @@ public class Register {
         return this.sale;
     }
     
-    public SalesLineItem enterItem(String id, int qty) {
+    public SalesLineItem enterItem(String id, int qty) throws SQLException, ClassNotFoundException {
         return this.sale.makeLineItem(id, qty);
     }
     

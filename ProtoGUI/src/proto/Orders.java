@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package proto;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modeltest.Register;
 import modeltest.SalesLineItem;
 import modeltest.Store;
@@ -162,7 +165,13 @@ public class Orders extends javax.swing.JFrame {
     }
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
+        try {
+            line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
+        }
         orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\n");
         totalTextField.setText(String.format("%5.2f", reg.getTotal()));
     }//GEN-LAST:event_addButtonActionPerformed

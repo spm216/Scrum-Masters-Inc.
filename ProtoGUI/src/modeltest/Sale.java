@@ -6,6 +6,7 @@
 
 package modeltest;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ class Sale {
         this.total = 0;
     }
     
-    SalesLineItem makeLineItem(String id, int qty) {
+    SalesLineItem makeLineItem(String id, int qty) throws ClassNotFoundException, SQLException {
         SalesLineItem item = new SalesLineItem(id, qty);
         if(item.isValid()) {
             this.salesLine.add(item);

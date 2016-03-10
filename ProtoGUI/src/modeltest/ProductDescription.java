@@ -15,22 +15,21 @@ class ProductDescription {
     private double salePrice;
     private String id;
     private boolean validItem;
-    Statement s;
     String sql;
     ResultSet rs = null;
     
     ProductDescription(String id) throws ClassNotFoundException, SQLException {
         Connection con=null;
         Class.forName("org.apache.derby.jdbc.ClientDriver");
-        DriverManager.getConnection("jdbc:derby://localhost:1527/orbdb", "root", "root");
-        Statement s=con.createStatement();
-        String q;
-        ResultSet result;
-        sql = "SELECT name, price FROM items where id = " + id;
+        con = DriverManager.getConnection("jdbc:derby://localhost:1527/test", "test", "test");
+        Statement s = con.createStatement();
+        int select = Integer.parseInt(id);
+        sql = "SELECT name, price FROM app.items where id = " + select;
         rs = s.executeQuery(sql);
-        this.desc = rs.getString("name");
-        this.salePrice = rs.getDouble("price");
-        this.salePrice = 3; //placeholder for db interaction
+        while (rs.next()) {
+           this.desc = rs.getString("name");
+           this.salePrice = rs.getDouble("price");
+        }
         if (desc == null){
             this.validItem = false;
         }else{
