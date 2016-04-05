@@ -90,8 +90,8 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        Orders f = new Orders(store);
-        f.setUserTextField(idTextField.getText());
+        NewSale f = new NewSale();
+        //f.setUserTextField(idTextField.getText());
         f.pack();
         f.setVisible(true);
         dispose();

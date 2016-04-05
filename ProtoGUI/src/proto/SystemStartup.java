@@ -75,7 +75,7 @@ public class SystemStartup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startupButtonActionPerformed
-        NewSale f = new NewSale();
+        Login f = new Login(store);
         //f.setUserTextField(idTextField.getText());
         f.pack();
         f.setVisible(true);
