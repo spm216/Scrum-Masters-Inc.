@@ -8,15 +8,16 @@ import modeltest.Store;
 
 /**
  *
- * @author Shane
+ * @author Ian W
  */
-public class NewSale extends javax.swing.JFrame {
+public class NewSaleManager extends javax.swing.JFrame {
 
     static Store store;
+    
     /**
-     * Creates new form NewSale
+     * Creates new form NewSaleManager
      */
-    public NewSale(Store store) {
+    public NewSaleManager(Store store) {
         initComponents();
         this.store = store;
     }
@@ -31,10 +32,10 @@ public class NewSale extends javax.swing.JFrame {
     private void initComponents() {
 
         newSale = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        shutdownButton = new javax.swing.JButton();
+        userButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("newSaleFrame");
 
         newSale.setText("New Sale");
         newSale.addActionListener(new java.awt.event.ActionListener() {
@@ -43,24 +44,29 @@ public class NewSale extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Shutdown System");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        shutdownButton.setText("Shutdown System");
+        shutdownButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                shutdownButtonActionPerformed(evt);
             }
         });
+
+        userButton.setText("Manage Users");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(userButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(shutdownButton)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 141, Short.MAX_VALUE)
                         .addComponent(newSale, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(142, 142, 142))))
         );
@@ -69,8 +75,10 @@ public class NewSale extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addComponent(newSale, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(shutdownButton)
+                    .addComponent(userButton))
                 .addContainerGap())
         );
 
@@ -84,10 +92,10 @@ public class NewSale extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_newSaleActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void shutdownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shutdownButtonActionPerformed
         // TODO add your handling code here:
         System.exit(1);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_shutdownButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,26 +114,27 @@ public class NewSale extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewSaleManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewSaleManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewSaleManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewSale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewSaleManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewSale(store).setVisible(true);
+                new NewSaleManager(store).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton newSale;
+    private javax.swing.JButton shutdownButton;
+    private javax.swing.JButton userButton;
     // End of variables declaration//GEN-END:variables
 }

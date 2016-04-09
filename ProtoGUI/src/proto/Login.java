@@ -34,9 +34,9 @@ public class Login extends javax.swing.JFrame {
 
         idLabel = new javax.swing.JLabel();
         passLabel = new javax.swing.JLabel();
-        passTextField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         idTextField = new javax.swing.JTextField();
+        passTextField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,12 +61,12 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(idLabel)
                     .addComponent(passLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(idTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                    .addComponent(passTextField))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(151, Short.MAX_VALUE)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(123, 123, 123))
         );
@@ -90,11 +90,20 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        NewSale f = new NewSale();
+        //TODO: query user table
+        if(true) {
+            NewSaleManager f = new NewSaleManager(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+        else {
+            NewSale f = new NewSale(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
         //f.setUserTextField(idTextField.getText());
-        f.pack();
-        f.setVisible(true);
-        dispose();
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
@@ -137,6 +146,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField idTextField;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel passLabel;
-    private javax.swing.JTextField passTextField;
+    private javax.swing.JPasswordField passTextField;
     // End of variables declaration//GEN-END:variables
 }
