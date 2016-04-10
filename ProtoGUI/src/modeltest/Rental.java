@@ -6,6 +6,7 @@
 
 package modeltest;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ class Rental {
         this.dueTime = 30;
     }
     
-    RentalLineItem makeLineItem(String id, int qty, int days) throws ClassNotFoundException, SQLException {
-        RentalLineItem item = new RentalLineItem(id, qty, days);
+    RentalLineItem makeLineItem(String id, int qty, int days, Connection conn) throws ClassNotFoundException, SQLException {
+        RentalLineItem item = new RentalLineItem(id, qty, days, conn);
         if(item.isValid()) {
             this.rentalLine.add(item);
             this.total += item.getSubtotal();

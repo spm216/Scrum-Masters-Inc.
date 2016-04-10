@@ -166,7 +166,7 @@ public class Orders extends javax.swing.JFrame {
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         try {
-            line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()));
+            line = reg.enterItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()), store.getConn());
         } catch (SQLException ex) {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

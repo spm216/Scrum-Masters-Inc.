@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,12 +52,12 @@ public class Register {
         return this.rental;
     }
     
-    public SalesLineItem enterItem(String id, int qty) throws SQLException, ClassNotFoundException {
-        return this.sale.makeLineItem(id, qty);
+    public SalesLineItem enterItem(String id, int qty, Connection conn) throws SQLException, ClassNotFoundException {
+        return this.sale.makeLineItem(id, qty, conn);
     }
     
-    public RentalLineItem enterRItem(String id, int qty, int days) throws SQLException, ClassNotFoundException {
-        return this.rental.makeLineItem(id, qty, days);
+    public RentalLineItem enterRItem(String id, int qty, int days, Connection conn) throws SQLException, ClassNotFoundException {
+        return this.rental.makeLineItem(id, qty, days, conn);
     }
     
     public double getTotal() {

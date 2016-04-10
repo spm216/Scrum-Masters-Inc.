@@ -18,11 +18,8 @@ class ProductDescription {
     String sql;
     ResultSet rs = null;
     
-    ProductDescription(String id) throws ClassNotFoundException, SQLException {
-        Connection con=null;
-        Class.forName("org.apache.derby.jdbc.ClientDriver");
-        con = DriverManager.getConnection("jdbc:derby://localhost:1527/test2", "test", "test");
-        Statement s = con.createStatement();
+    ProductDescription(String id, Connection conn) throws ClassNotFoundException, SQLException {
+        Statement s = conn.createStatement();
         int select = Integer.parseInt(id);
         sql = "SELECT name, price FROM test.items where id = " + select;
         rs = s.executeQuery(sql);
@@ -36,7 +33,6 @@ class ProductDescription {
             this.validItem = true; //true or false if it exists in db
         }
         s.close();
-        con.close();
     }
     
     String getDesc() {

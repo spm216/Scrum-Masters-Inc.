@@ -197,7 +197,7 @@ public class rOrders extends javax.swing.JFrame {
         try {
             int qty = Integer.parseInt(qtyTextField.getText());
             int days = Integer.parseInt(dayTextField.getText());
-            line = reg.enterRItem(idTextField.getText(), qty, days);
+            line = reg.enterRItem(idTextField.getText(), qty, days, store.getConn());
         } catch (SQLException ex) {
             Logger.getLogger(rOrders.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

@@ -9,6 +9,7 @@ package modeltest;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -33,8 +34,8 @@ class Sale {
         this.total = 0;
     }
     
-    SalesLineItem makeLineItem(String id, int qty) throws ClassNotFoundException, SQLException {
-        SalesLineItem item = new SalesLineItem(id, qty);
+    SalesLineItem makeLineItem(String id, int qty, Connection conn) throws ClassNotFoundException, SQLException {
+        SalesLineItem item = new SalesLineItem(id, qty, conn);
         if(item.isValid()) {
             this.salesLine.add(item);
             this.total += item.getSubtotal();

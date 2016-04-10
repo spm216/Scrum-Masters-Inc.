@@ -5,6 +5,7 @@
  */
 package modeltest;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -16,9 +17,9 @@ public class RentalLineItem {
     private int qty;
     private int days;
     
-    RentalLineItem(String id, int qty, int days) throws ClassNotFoundException, SQLException {
+    RentalLineItem(String id, int qty, int days, Connection conn) throws ClassNotFoundException, SQLException {
         this.qty = qty;
-        this.item = new ProductDescription(id);
+        this.item = new ProductDescription(id, conn);
         this.days = days;
     }
     

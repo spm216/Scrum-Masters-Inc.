@@ -5,6 +5,7 @@
  */
 package modeltest;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -15,9 +16,9 @@ public class SalesLineItem {
     private ProductDescription item;
     private int qty;
     
-    SalesLineItem(String id, int qty) throws ClassNotFoundException, SQLException {
+    SalesLineItem(String id, int qty, Connection conn) throws ClassNotFoundException, SQLException {
         this.qty = qty;
-        this.item = new ProductDescription(id);
+        this.item = new ProductDescription(id, conn);
     }
     
     public double getSubtotal() {
