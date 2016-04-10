@@ -151,7 +151,7 @@ public class Total extends javax.swing.JFrame {
 
     private void endSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endSaleActionPerformed
         reg.endSale();
-        NewSaleLoop f = new NewSaleLoop(store);
+        NewSaleManager f = new NewSaleManager(store);
         f.pack();
         f.setVisible(true);
         dispose();
