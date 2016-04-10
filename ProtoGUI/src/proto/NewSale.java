@@ -32,6 +32,7 @@ public class NewSale extends javax.swing.JFrame {
 
         newSale = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        newSale1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("newSaleFrame");
@@ -50,6 +51,13 @@ public class NewSale extends javax.swing.JFrame {
             }
         });
 
+        newSale1.setText("New Rental");
+        newSale1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newSale1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,13 +70,17 @@ public class NewSale extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(newSale, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(142, 142, 142))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(newSale1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
-                .addComponent(newSale, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newSale, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newSale1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -89,6 +101,13 @@ public class NewSale extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(1);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void newSale1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSale1ActionPerformed
+        rOrders f = new rOrders(store);
+        f.pack();
+        f.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_newSale1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,5 +147,6 @@ public class NewSale extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton newSale;
+    private javax.swing.JButton newSale1;
     // End of variables declaration//GEN-END:variables
 }
