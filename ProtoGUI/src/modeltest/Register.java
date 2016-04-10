@@ -109,4 +109,28 @@ public class Register {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void returnItems() throws ClassNotFoundException, SQLException
+    {
+        Statement s = con.createStatement();
+        for(int i = 0; i < rental.getRentalLine().size(); i++)
+        {
+        String id = rental.getRentalLine().get(i).getID();
+        int q = rental.getRentalLine().get(i).getQuantity();
+        sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
+        rs = s.executeUpdate(sql);
+        }
+    }
+    
+    public void purchaseItems() throws ClassNotFoundException, SQLException
+    {
+        Statement s = con.createStatement();
+        for(int i = 0; i < rental.getRentalLine().size(); i++)
+        {
+        String id = rental.getRentalLine().get(i).getID();
+        int q = rental.getRentalLine().get(i).getQuantity();
+        sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        rs = s.executeUpdate(sql);
+        }
+    }
 }
