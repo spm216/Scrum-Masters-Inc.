@@ -16,12 +16,14 @@ public class Store {
     private String address;
     private String name;
     private ArrayList<Sale> saleList;
+    private ArrayList<Rental> rentalList;
     private Register reg;
     
     public Store(String add, String n) {
         this.address = add;
         this.name = n;
         this.saleList = new ArrayList<Sale>();
+        this.rentalList = new ArrayList<Rental>();
         this.reg = new Register();
     }
     
@@ -46,5 +48,15 @@ public class Store {
     public void addSale() {
         Sale sale = this.reg.makeNewSale(new Date());
         this.saleList.add(sale);
+    }
+    
+    public ArrayList<Rental> getRentals() {
+        return this.rentalList;
+    }
+        
+    //adds new sale to list of sales
+    public void addRental() {
+        Rental rental = this.reg.makeNewRental(new Date());
+        this.rentalList.add(rental);
     }
 }
