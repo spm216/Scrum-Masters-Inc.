@@ -1,0 +1,10 @@
+	SCRUM-MASTERS-INC.
+	1
+Sun, 10 Apr 2016 16:35:48
+	SDF
+
+Banana(x2)	 2.00
+Avacado(x2)	 4.00
+Subtotal		 6.00
+Sales Tax		 0.42
+Balance Due		 6.42

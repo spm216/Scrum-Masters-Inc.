@@ -160,8 +160,8 @@ public class Orders extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
 
-    public void setUserTextField(String id) {
-        userTextField.setText(id);
+    public void setUserTextField() {
+        userTextField.setText(reg.getUser());
     }
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed

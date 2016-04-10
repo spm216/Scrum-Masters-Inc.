@@ -6,9 +6,15 @@
 
 package modeltest;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,5 +52,13 @@ class Sale {
     
     void becomeComplete() {
         this.isComplete = true;
+    }
+    
+    Date getTime() {
+        return time;
+    }
+    
+    ArrayList<SalesLineItem> getList() {
+        return salesLine;
     }
 }

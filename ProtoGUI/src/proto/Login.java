@@ -93,12 +93,14 @@ public class Login extends javax.swing.JFrame {
         //TODO: query user table
         if(true) {
             NewSaleManager f = new NewSaleManager(store);
+            store.getReg().setUser(idTextField.getText());
             f.pack();
             f.setVisible(true);
             dispose();
         }
         else {
             NewSale f = new NewSale(store);
+            store.getReg().setUser(idTextField.getText());
             f.pack();
             f.setVisible(true);
             dispose();

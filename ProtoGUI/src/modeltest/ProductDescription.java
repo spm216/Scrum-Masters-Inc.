@@ -21,7 +21,7 @@ class ProductDescription {
     ProductDescription(String id) throws ClassNotFoundException, SQLException {
         Connection con=null;
         Class.forName("org.apache.derby.jdbc.ClientDriver");
-        con = DriverManager.getConnection("jdbc:derby://localhost:1527/test", "test", "test");
+        con = DriverManager.getConnection("jdbc:derby://localhost:1527/HW7TestDB", "test", "test");
         Statement s = con.createStatement();
         int select = Integer.parseInt(id);
         sql = "SELECT name, price FROM app.items where id = " + select;

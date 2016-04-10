@@ -28,6 +28,10 @@ public class SalesLineItem {
         return this.item.getDesc();
     }
     
+    public int getQty() {
+        return qty;
+    }
+    
     boolean isValid() {
         return this.item.isValid();
     }

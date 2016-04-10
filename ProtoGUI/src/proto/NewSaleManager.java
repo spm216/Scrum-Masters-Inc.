@@ -87,6 +87,7 @@ public class NewSaleManager extends javax.swing.JFrame {
 
     private void newSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleActionPerformed
         Orders f = new Orders(store);
+        f.setUserTextField();
         f.pack();
         f.setVisible(true);
         dispose();
