@@ -53,6 +53,11 @@ public class NewSaleManager extends javax.swing.JFrame {
         });
 
         userButton.setText("Manage Users");
+        userButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userButtonActionPerformed(evt);
+            }
+        });
 
         newSale1.setText("New Rental");
         newSale1.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,14 @@ public class NewSaleManager extends javax.swing.JFrame {
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_newSale1ActionPerformed
+
+    private void userButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userButtonActionPerformed
+        // TODO add your handling code here:
+        ManageUsers f = new ManageUsers(store);
+        f.pack();
+        f.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_userButtonActionPerformed
 
     /**
      * @param args the command line arguments
