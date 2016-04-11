@@ -73,7 +73,7 @@ public class Store {
     {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/test2", "test", "test");
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/HW7TestDB", "test", "test");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Store.class.getName()).log(Level.SEVERE, null, ex);
         }

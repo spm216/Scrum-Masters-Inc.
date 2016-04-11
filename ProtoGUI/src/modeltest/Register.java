@@ -109,7 +109,7 @@ public class Register {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /*
     public void returnItems() throws ClassNotFoundException, SQLException
     {
         Statement s = con.createStatement();
@@ -132,5 +132,5 @@ public class Register {
         sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
         rs = s.executeUpdate(sql);
         }
-    }
+    }*/
 }

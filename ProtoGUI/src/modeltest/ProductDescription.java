@@ -21,7 +21,7 @@ class ProductDescription {
     ProductDescription(String id, Connection conn) throws ClassNotFoundException, SQLException {
         Statement s = conn.createStatement();
         int select = Integer.parseInt(id);
-        sql = "SELECT name, price FROM test.items where id = " + select;
+        sql = "SELECT name, price FROM app.items where id = " + select;
         rs = s.executeQuery(sql);
         while (rs.next()) {
            this.desc = rs.getString("name");
