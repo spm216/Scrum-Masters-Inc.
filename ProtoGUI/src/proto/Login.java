@@ -6,6 +6,12 @@
 package proto;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Store;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -91,23 +97,49 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        //TODO: query user table
-        Connection conn = store.getConn();
-        if(true) {
-            NewSaleManager f = new NewSaleManager(store);
-            store.getReg().setUser(idTextField.getText());
-            f.pack();
-            f.setVisible(true);
-            dispose();
+        try {
+            //TODO: query user table
+            Connection conn = store.getConn();
+            Statement s = conn.createStatement();
+            String sql = "SELECT name, password, level FROM scrum.users where cashierid = " + idTextField.getText();
+            ResultSet rs = s.executeQuery(sql);
+            if(rs.next()) {
+                String pass = rs.getString("password");
+                if(pass.equals(new String(passTextField.getPassword()))) {
+                //if(Integer.parseInt(pass) == Integer.parseInt(passTextField.getPassword().toString())) {
+                    int level = rs.getInt("level");
+                    if(level > 1) {
+                        NewSaleManager f = new NewSaleManager(store);
+                        store.getReg().setUser(idTextField.getText());
+                        f.pack();
+                        f.setVisible(true);
+                        dispose();
+                    }
+                    else {
+                        NewSale f = new NewSale(store);
+                        store.getReg().setUser(idTextField.getText());
+                        f.pack();
+                        f.setVisible(true);
+                        dispose();
+                    }
+                }
+                else {
+                    System.out.println("bad pass");
+                    idTextField.setText("");
+                    passTextField.setText("");
+                    JOptionPane.showMessageDialog(null, "Incorrect userID or password");
+                }
+            }
+            else {
+                System.out.println("bad user");
+                idTextField.setText("");
+                passTextField.setText("");
+                JOptionPane.showMessageDialog(null, "Incorrect userID or password");
+            }
+            //f.setUserTextField(idTextField.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else {
-            NewSale f = new NewSale(store);
-            store.getReg().setUser(idTextField.getText());
-            f.pack();
-            f.setVisible(true);
-            dispose();
-        }
-        //f.setUserTextField(idTextField.getText());
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
