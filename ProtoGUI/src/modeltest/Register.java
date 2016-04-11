@@ -139,19 +139,18 @@ public class Register {
     
     public void returnItems() throws ClassNotFoundException, SQLException
     {
-        Statement s = conn.createStatement();
-        for(int i = 0; i < rental.getRentalLine().size(); i++)
+       Statement s = conn.createStatement();
+       if(sale != null)
         {
-        String id = rental.getRentalLine().get(i).getID();
-        int q = rental.getRentalLine().get(i).getQuantity();
-        String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
+        for(int i = 0; i < sale.getList().size(); i++)
+        {
+        String id = sale.getList().get(i).getID();
+        int q = sale.getList().get(i).getQty();
+        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
         int rs = s.executeUpdate(sql);
         }
-    }
-    
-    public void purchaseItems() throws ClassNotFoundException, SQLException
-    {
-        Statement s = conn.createStatement();
+        }else
+        {
         for(int i = 0; i < rental.getRentalLine().size(); i++)
         {
         String id = rental.getRentalLine().get(i).getID();
@@ -159,5 +158,30 @@ public class Register {
         String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
         int rs = s.executeUpdate(sql);
         }
+        } 
+    }
+    
+    public void purchaseItems() throws ClassNotFoundException, SQLException
+    {
+       Statement s = conn.createStatement();
+       if(sale != null)
+        {
+        for(int i = 0; i < sale.getList().size(); i++)
+        {
+        String id = sale.getList().get(i).getID();
+        int q = sale.getList().get(i).getQty();
+        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        int rs = s.executeUpdate(sql);
+        }
+        }else
+        {
+        for(int i = 0; i < rental.getRentalLine().size(); i++)
+        {
+        String id = rental.getRentalLine().get(i).getID();
+        int q = rental.getRentalLine().get(i).getQuantity();
+        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        int rs = s.executeUpdate(sql);
+        }
+        }      
     }
 }

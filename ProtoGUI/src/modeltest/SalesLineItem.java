@@ -15,9 +15,11 @@ import java.sql.SQLException;
 public class SalesLineItem {
     private ProductDescription item;
     private int qty;
+    private String id;
     
     SalesLineItem(String id, int qty, Connection conn) throws ClassNotFoundException, SQLException {
         this.qty = qty;
+        this.id = id;
         this.item = new ProductDescription(id, conn);
     }
     
@@ -31,6 +33,10 @@ public class SalesLineItem {
     
     public int getQty() {
         return qty;
+    }
+    
+    public String getID() {
+        return this.id;
     }
     
     boolean isValid() {
