@@ -16,11 +16,13 @@ public class RentalLineItem {
     private ProductDescription item;
     private int qty;
     private int days;
+    private String id;
     
     RentalLineItem(String id, int qty, int days, Connection conn) throws ClassNotFoundException, SQLException {
         this.qty = qty;
         this.item = new ProductDescription(id, conn);
         this.days = days;
+        this.id = id;
     }
     
     public double getSubtotal() {
@@ -38,5 +40,15 @@ public class RentalLineItem {
     public int getDays()
     {
       return this.days;
+    }
+    
+    public String getID()
+    {
+        return this.id;
+    }
+    
+    public int getQuantity()
+    {
+        return this.qty;
     }
 }

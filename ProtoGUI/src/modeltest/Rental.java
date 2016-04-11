@@ -72,4 +72,9 @@ class Rental {
         c.add(Calendar.DATE, dueTime);              
         return c.getTime();
     }
+    
+    ArrayList<RentalLineItem> getRentalLine()
+    {
+        return this.rentalLine;
+    }
 }
