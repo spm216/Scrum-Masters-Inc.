@@ -7,6 +7,9 @@ package modeltest;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -51,4 +54,13 @@ public class RentalLineItem {
     {
         return this.qty;
     }
+        
+    Date dueDate()
+    {
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, days);              
+        return c.getTime();
+    }
+    
 }

@@ -60,7 +60,6 @@ public class Register {
     }
     
     public RentalLineItem enterRItem(String id, int qty, int days, Connection conn) throws SQLException, ClassNotFoundException {
-        this.conn = conn;
         return this.rental.makeLineItem(id, qty, days, conn);
     }
     
@@ -94,6 +93,8 @@ public class Register {
     }
     
     public void printReceipt() {
+        if(sale != null)
+        {
         int transNum = 1; //TODO: generate actual transaction number earlier
         ArrayList<SalesLineItem> salesLine = sale.getList();
         try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
@@ -112,6 +113,28 @@ public class Register {
         } catch (IOException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }else
+        {
+        int transNum = 1; //TODO: generate actual transaction number earlier
+        ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
+        try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            writer.write("\tSCRUM-MASTERS-INC.\n");
+            writer.write("\tRENTAL\n");
+            writer.write("\t" + transNum + "\n");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+            writer.write(dateFormat.format(rental.getTime()) + "\n");
+            writer.write("\t" + user.toUpperCase() + "\n\n");
+            for(int i = 0; i < rentalLine.size(); i++) {
+                RentalLineItem temp = rentalLine.get(i);  
+                writer.write(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")"+ "\t%5.2f\n", temp.getSubtotal())+ "\tReturn Due: "+ dateFormat.format(temp.dueDate())+"\n"); 
+            }
+            writer.write(String.format("Subtotal\t\t%5.2f\n", this.getRTotal()));
+            writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getRTotal()*.07));
+            writer.write(String.format("Balance Due\t\t%5.2f\n", this.getRTotal()*1.07));
+        } catch (IOException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     }
     
     public void returnItems() throws ClassNotFoundException, SQLException

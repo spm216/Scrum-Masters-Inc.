@@ -64,17 +64,13 @@ class Rental {
     {
         return this.returned;
     }
-    
-    Date dueDate()
-    {
-        GregorianCalendar c = new GregorianCalendar();
-        c.setTime(time);
-        c.add(Calendar.DATE, dueTime);              
-        return c.getTime();
-    }
-    
+
     ArrayList<RentalLineItem> getRentalLine()
     {
         return this.rentalLine;
+    }
+    
+    Date getTime() {
+        return time;
     }
 }
