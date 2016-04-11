@@ -60,6 +60,7 @@ public class Register {
     }
     
     public RentalLineItem enterRItem(String id, int qty, int days, Connection conn) throws SQLException, ClassNotFoundException {
+        this.conn = conn;
         return this.rental.makeLineItem(id, qty, days, conn);
     }
     
