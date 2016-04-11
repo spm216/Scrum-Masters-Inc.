@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +27,7 @@ public class Register {
     private Sale sale;
     private String user;
     private Rental rental;
+    private Connection conn;
     
     Register() {
         this.regNum = 0;
@@ -39,6 +40,7 @@ public class Register {
     public String getUser() {
         return this.user;
     }
+
     
     //creates new sale instance
     public Sale makeNewSale(Date time) {
@@ -53,6 +55,7 @@ public class Register {
     }
     
     public SalesLineItem enterItem(String id, int qty, Connection conn) throws SQLException, ClassNotFoundException {
+        this.conn = conn;
         return this.sale.makeLineItem(id, qty, conn);
     }
     
@@ -109,28 +112,28 @@ public class Register {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /*
+    
     public void returnItems() throws ClassNotFoundException, SQLException
     {
-        Statement s = con.createStatement();
+        Statement s = conn.createStatement();
         for(int i = 0; i < rental.getRentalLine().size(); i++)
         {
         String id = rental.getRentalLine().get(i).getID();
         int q = rental.getRentalLine().get(i).getQuantity();
-        sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
-        rs = s.executeUpdate(sql);
+        String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
+        int rs = s.executeUpdate(sql);
         }
     }
     
     public void purchaseItems() throws ClassNotFoundException, SQLException
     {
-        Statement s = con.createStatement();
+        Statement s = conn.createStatement();
         for(int i = 0; i < rental.getRentalLine().size(); i++)
         {
         String id = rental.getRentalLine().get(i).getID();
         int q = rental.getRentalLine().get(i).getQuantity();
-        sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
-        rs = s.executeUpdate(sql);
+        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        int rs = s.executeUpdate(sql);
         }
-    }*/
+    }
 }
