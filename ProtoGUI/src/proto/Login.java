@@ -5,6 +5,7 @@
  */
 package proto;
 
+import java.sql.Connection;
 import modeltest.Store;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -91,6 +92,7 @@ public class Login extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         //TODO: query user table
+        Connection conn = store.getConn();
         if(true) {
             NewSaleManager f = new NewSaleManager(store);
             store.getReg().setUser(idTextField.getText());
