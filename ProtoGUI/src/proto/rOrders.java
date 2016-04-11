@@ -237,6 +237,11 @@ public class rOrders extends javax.swing.JFrame {
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
      try {         
         reg.returnItems();
+        reg.endSale();
+        NewSaleManager f = new NewSaleManager(store);
+        f.pack();
+        f.setVisible(true);
+        dispose();
         } catch (SQLException ex) {
             Logger.getLogger(rOrders.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
