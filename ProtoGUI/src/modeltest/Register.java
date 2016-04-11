@@ -146,7 +146,7 @@ public class Register {
         {
         String id = sale.getList().get(i).getID();
         int q = sale.getList().get(i).getQty();
-        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
         int rs = s.executeUpdate(sql);
         }
         }else
@@ -155,7 +155,7 @@ public class Register {
         {
         String id = rental.getRentalLine().get(i).getID();
         int q = rental.getRentalLine().get(i).getQuantity();
-        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
         int rs = s.executeUpdate(sql);
         }
         } 
