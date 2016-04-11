@@ -5,6 +5,13 @@
  */
 package proto;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Store;
 
 /**
@@ -45,6 +52,11 @@ public class DeleteEmployee extends javax.swing.JFrame {
         idLabel.setText("ID:");
 
         deleteEmployeeButton.setText("Delete Employee");
+        deleteEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteEmployeeButtonActionPerformed(evt);
+            }
+        });
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,9 +76,9 @@ public class DeleteEmployee extends javax.swing.JFrame {
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(119, 119, 119)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteEmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(idLabel)
                                     .addGap(59, 59, 59)
@@ -100,6 +112,30 @@ public class DeleteEmployee extends javax.swing.JFrame {
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void deleteEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmployeeButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            Connection conn = store.getConn();
+            Statement s = conn.createStatement();
+            String id = idField.getText();
+            String sql = "SELECT cashierid FROM scrum.users WHERE cashierid =" + id;
+            ResultSet rs = s.executeQuery(sql);
+            if (rs.next()){
+                sql = "DELETE FROM scrum.users WHERE cashierid = " + id;
+                s.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Employee Deleted Forever and Ever.");
+                idField.setText("");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error: Employee ID does not exist.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteEmployee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_deleteEmployeeButtonActionPerformed
 
     /**
      * @param args the command line arguments

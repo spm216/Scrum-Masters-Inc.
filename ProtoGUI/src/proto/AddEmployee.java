@@ -5,6 +5,13 @@
  */
 package proto;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Store;
 
 /**
@@ -154,11 +161,30 @@ public class AddEmployee extends javax.swing.JFrame {
         
         
         
-        nameField.setText("");
-        idField.setText("");
-        passwordField.setText("");
-        authField.setText("");
-        
+        try {
+            // TODO add your handling code here:
+            Connection conn = store.getConn();
+            Statement s = conn.createStatement();
+            String sql = "SELECT cashierid FROM scrum.users WHERE cashierid =" + idField.getText();
+            ResultSet rs = s.executeQuery(sql);
+            if (rs.next()){
+                JOptionPane.showMessageDialog(null, "Error: ID already exists.");
+            }
+            else{
+                sql = "INSERT INTO scrum.users VALUES(" + idField.getText() + ", '" + nameField.getText() + "', '" + passwordField.getText() + "', " + authField.getText() + ")";
+                JOptionPane.showMessageDialog(null, "Employee Created.");
+                s.executeUpdate(sql);
+                nameField.setText("");
+                idField.setText("");
+                passwordField.setText("");
+                authField.setText("");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_createEmployeeButtonActionPerformed
 
     /**
