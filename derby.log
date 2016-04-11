@@ -1,0 +1,18 @@
+Sun Apr 10 21:19:04 EDT 2016 : Apache Derby Network Server - 10.10.2.0 - (1582446) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Sun Apr 10 21:19:05 EDT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0154-02e6-854f-fffff7928f77 
+on database directory /Users/Shane/Desktop/CSE 216/Scrum-Masters-Inc./scrumMasters with class loader sun.misc.Launcher$AppClassLoader@266474c2 
+Loaded from file:/Applications/NetBeans/glassfish-4.1.1/javadb/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_65-b17
+user.dir=/Applications/NetBeans/glassfish-4.1.1/javadb
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.11.3
+derby.system.home=/Users/Shane/Desktop/CSE 216/Scrum-Masters-Inc.
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Sun Apr 10 21:19:09 EDT 2016:
+Shutting down instance a816c00e-0154-02e6-854f-fffff7928f77 on database directory /Users/Shane/Desktop/CSE 216/Scrum-Masters-Inc./scrumMasters with class loader sun.misc.Launcher$AppClassLoader@266474c2 
+Sun Apr 10 21:19:09 EDT 2016 Thread[DRDAConnThread_3,5,main] (DATABASE = scrumMasters), (DRDAID = {2}), Database 'scrumMasters' shutdown.
