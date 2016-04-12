@@ -5,6 +5,9 @@
  */
 package proto;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modeltest.Register;
 import modeltest.Store;
 
@@ -150,7 +153,11 @@ public class Total extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void endSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endSaleActionPerformed
-        reg.purchaseItems();
+        try {
+            reg.purchaseItems();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Total.class.getName()).log(Level.SEVERE, null, ex);
+        }
         reg.endSale();
         NewSaleManager f = new NewSaleManager(store);
         f.pack();

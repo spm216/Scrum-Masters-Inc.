@@ -128,10 +128,11 @@ public class Register {
         if(sale != null)
         {
             int transNum = 1; //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
             ArrayList<SalesLineItem> salesLine = sale.getList();
-            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
                 writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
-                writer.write(center(transNum + "") + "\r\n");
+                writer.write(center(trans + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(center(dateFormat.format(sale.getTime())) + "\r\n");
                 writer.write(center(user.toUpperCase()) + "\r\n\r\n");
@@ -149,11 +150,12 @@ public class Register {
         else if(rental != null)
         {
             int transNum = 1; //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
             ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
-            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
                 writer.write("\tSCRUM-MASTERS-INC.\r\n");
                 writer.write("\tRENTAL\r\n");
-                writer.write("\t" + transNum + "\r\n");
+                writer.write("\t" + trans + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(dateFormat.format(rental.getTime()) + "\r\n");
                 writer.write("\t" + user.toUpperCase() + "\r\n\r\n");
@@ -171,10 +173,11 @@ public class Register {
         else
         {
             int transNum = ret.getTransNum(); //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
             ArrayList<SalesLineItem> salesLine = ret.getList();
-            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
                 writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
-                writer.write(center(transNum + "") + "\r\n");
+                writer.write(center(trans + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(center(dateFormat.format(ret.getTime())) + "\r\n");
                 writer.write(center(user.toUpperCase()) + "\r\n\r\n");
