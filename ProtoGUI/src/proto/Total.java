@@ -150,6 +150,7 @@ public class Total extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void endSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endSaleActionPerformed
+        reg.purchaseItems();
         reg.endSale();
         NewSaleManager f = new NewSaleManager(store);
         f.pack();
