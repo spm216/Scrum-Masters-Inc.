@@ -172,7 +172,7 @@ public class Orders extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\n");
+        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
         totalTextField.setText(String.format("%5.2f", reg.getTotal()));
     }//GEN-LAST:event_addButtonActionPerformed
                                           

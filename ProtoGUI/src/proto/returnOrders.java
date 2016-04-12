@@ -158,7 +158,7 @@ public class returnOrders extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t-" + String.format("%5.2f", line.getSubtotal()) + "\n");
+        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t-" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
         totalTextField.setText(String.format("%5.2f", reg.getReturnTotal()));
     }//GEN-LAST:event_addButtonActionPerformed
 

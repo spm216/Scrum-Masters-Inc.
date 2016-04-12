@@ -130,18 +130,18 @@ public class Register {
             int transNum = 1; //TODO: generate actual transaction number earlier
             ArrayList<SalesLineItem> salesLine = sale.getList();
             try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
-                writer.write("\tSCRUM-MASTERS-INC.\n");
-                writer.write("\t" + transNum + "\n");
+                writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
+                writer.write(center(transNum + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-                writer.write(dateFormat.format(sale.getTime()) + "\n");
-                writer.write("\t" + user.toUpperCase() + "\n\n");
+                writer.write(center(dateFormat.format(sale.getTime())) + "\r\n");
+                writer.write(center(user.toUpperCase()) + "\r\n\r\n");
                 for(int i = 0; i < salesLine.size(); i++) {
                     SalesLineItem temp = salesLine.get(i);
-                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f\n", temp.getSubtotal())); 
+                    writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f", temp.getSubtotal())) + "\r\n"); 
                 }
-                writer.write(String.format("Subtotal\t\t%5.2f\n", this.getTotal()));
-                writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getTotal()*.07));
-                writer.write(String.format("Balance Due\t\t%5.2f\n", this.getTotal()*1.07));
+                writer.write(center(String.format("Subtotal\t%5.2f", this.getTotal())) + "\r\n");
+                writer.write(center(String.format("Sales Tax\t%5.2f", this.getTotal()*.07)) + "\r\n");
+                writer.write(center(String.format("Balance Due\t%5.2f", this.getTotal()*1.07)));
             } catch (IOException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -151,19 +151,19 @@ public class Register {
             int transNum = 1; //TODO: generate actual transaction number earlier
             ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
             try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
-                writer.write("\tSCRUM-MASTERS-INC.\n");
-                writer.write("\tRENTAL\n");
-                writer.write("\t" + transNum + "\n");
+                writer.write("\tSCRUM-MASTERS-INC.\r\n");
+                writer.write("\tRENTAL\r\n");
+                writer.write("\t" + transNum + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-                writer.write(dateFormat.format(rental.getTime()) + "\n");
-                writer.write("\t" + user.toUpperCase() + "\n\n");
+                writer.write(dateFormat.format(rental.getTime()) + "\r\n");
+                writer.write("\t" + user.toUpperCase() + "\r\n\r\n");
                 for(int i = 0; i < rentalLine.size(); i++) {
                     RentalLineItem temp = rentalLine.get(i);  
-                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")"+ "\t%5.2f\n", temp.getSubtotal())+ "\tReturn Due: "+ dateFormat.format(temp.dueDate())+"\n"); 
+                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")"+ "\t%5.2f\r\n", temp.getSubtotal())+ "\tReturn Due: "+ dateFormat.format(temp.dueDate())+"\r\n"); 
                 }
-                writer.write(String.format("Subtotal\t\t%5.2f\n", this.getRTotal()));
-                writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getRTotal()*.07));
-                writer.write(String.format("Balance Due\t\t%5.2f\n", this.getRTotal()*1.07));
+                writer.write(String.format("Subtotal\t\t%5.2f\r\n", this.getRTotal()));
+                writer.write(String.format("Sales Tax\t\t%5.2f\r\n", this.getRTotal()*.07));
+                writer.write(String.format("Balance Due\t\t%5.2f\r\n", this.getRTotal()*1.07));
             } catch (IOException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -173,18 +173,18 @@ public class Register {
             int transNum = ret.getTransNum(); //TODO: generate actual transaction number earlier
             ArrayList<SalesLineItem> salesLine = ret.getList();
             try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
-                writer.write("\tSCRUM-MASTERS-INC.\n");
-                writer.write("\t" + transNum + "\n");
+                writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
+                writer.write(center(transNum + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-                writer.write(dateFormat.format(ret.getTime()) + "\n");
-                writer.write("\t" + user.toUpperCase() + "\n\n");
+                writer.write(center(dateFormat.format(ret.getTime())) + "\r\n");
+                writer.write(center(user.toUpperCase()) + "\r\n\r\n");
                 for(int i = 0; i < salesLine.size(); i++) {
                     SalesLineItem temp = salesLine.get(i);
-                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t-%5.2f\n", temp.getSubtotal())); 
+                    writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t-%5.2f", temp.getSubtotal())) + "\r\n"); 
                 }
-                writer.write(String.format("Subtotal\t\t%5.2f\n", this.getReturnTotal()));
-                writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getReturnTotal()*.07));
-                writer.write(String.format("Balance Due\t\t%5.2f\n", this.getReturnTotal()*1.07));
+                writer.write(center(String.format("Subtotal\t%5.2f", this.getReturnTotal())) + "\r\n");
+                writer.write(center(String.format("Sales Tax\t%5.2f", this.getReturnTotal()*.07)) + "\r\n");
+                writer.write(center(String.format("Balance Due\t%5.2f", this.getReturnTotal()*1.07)));
             } catch (IOException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -238,5 +238,30 @@ public class Register {
         int rs = s.executeUpdate(sql);
         }
         }      
+    }
+    
+    private String center (String s) {
+        int length = 30;
+        if (s.length() > length) {
+            return s.substring(0, length);
+        } 
+        else if (s.length() == length) {
+            return s;
+        } 
+        else {
+            int leftPadding = (length - s.length()) / 2; 
+            StringBuilder leftBuilder = new StringBuilder();
+            for (int i = 0; i < leftPadding; i++) {
+                leftBuilder.append(" ");
+            }
+
+            int rightPadding = length - s.length() - leftPadding;
+            StringBuilder rightBuilder = new StringBuilder();
+            for (int i = 0; i < rightPadding; i++) 
+                rightBuilder.append(" ");
+
+            return leftBuilder.toString() + s 
+                    + rightBuilder.toString();
+        }
     }
 }
