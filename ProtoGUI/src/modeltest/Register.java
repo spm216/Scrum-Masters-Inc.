@@ -210,7 +210,7 @@ public class Register {
             {
                 String id = rental.getRentalLine().get(i).getID();
                 int q = rental.getRentalLine().get(i).getQuantity();
-                String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
+                String sql = "UPDATE scrum.rentals SET qty = qty + "+q+" WHERE itemid = " + id;
                 int rs = s.executeUpdate(sql);
             }
        } 
@@ -225,7 +225,7 @@ public class Register {
         {
         String id = sale.getList().get(i).getID();
         int q = sale.getList().get(i).getQty();
-        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        String sql = "UPDATE scrum.lines SET qty = qty - "+q+" WHERE itemid = " + id;
         int rs = s.executeUpdate(sql);
         }
         }else
@@ -234,7 +234,7 @@ public class Register {
         {
         String id = rental.getRentalLine().get(i).getID();
         int q = rental.getRentalLine().get(i).getQuantity();
-        String sql = "UPDATE test.items SET quantity = quantity - "+q+" WHERE id = " + id;
+        String sql = "UPDATE scrum.rentals SET qty = qty - "+q+" WHERE itemid = " + id;
         int rs = s.executeUpdate(sql);
         }
         }      
