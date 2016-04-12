@@ -1,10 +1,10 @@
 	SCRUM-MASTERS-INC.
 	1
-Sun, 10 Apr 2016 23:12:27
-	
+Mon, 11 Apr 2016 20:28:01
+	1
 
-Apple(x2)	 1.00
-Banana(x21)	15.75
-Subtotal		16.75
-Sales Tax		 1.17
-Balance Due		17.92
+Apple(x2)	- 1.00
+Mango(x4)	- 5.20
+Subtotal		-6.20
+Sales Tax		-0.43
+Balance Due		-6.63

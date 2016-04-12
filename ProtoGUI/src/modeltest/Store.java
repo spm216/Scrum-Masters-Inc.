@@ -22,6 +22,7 @@ public class Store {
     private String name;
     private ArrayList<Sale> saleList;
     private ArrayList<Rental> rentalList;
+    private ArrayList<Return> returnList;
     private Register reg;
     private Connection conn;
     
@@ -30,6 +31,7 @@ public class Store {
         this.name = n;
         this.saleList = new ArrayList<Sale>();
         this.rentalList = new ArrayList<Rental>();
+        this.returnList = new ArrayList<Return>();
         this.reg = new Register();
         this.openDB();
     }
@@ -86,5 +88,10 @@ public class Store {
     public void addRental() {
         Rental rental = this.reg.makeNewRental(new Date());
         this.rentalList.add(rental);
+    }
+    
+    public void addReturn() {
+        Return ret = this.reg.makeNewReturn(new Date());
+        this.returnList.add(ret);
     }
 }

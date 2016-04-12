@@ -27,10 +27,14 @@ public class Register {
     private Sale sale;
     private String user;
     private Rental rental;
+    private Return ret;
     private Connection conn;
     
     Register() {
         this.regNum = 0;
+        sale = null;
+        rental = null;
+        ret = null;
     }
     
     public void setUser(String user) {
@@ -54,6 +58,11 @@ public class Register {
         return this.rental;
     }
     
+    public Return makeNewReturn(Date time) {
+        ret = new Return(time);
+        return ret;
+    }
+    
     public SalesLineItem enterItem(String id, int qty, Connection conn) throws SQLException, ClassNotFoundException {
         this.conn = conn;
         return this.sale.makeLineItem(id, qty, conn);
@@ -62,6 +71,11 @@ public class Register {
     public RentalLineItem enterRItem(String id, int qty, int days, Connection conn) throws SQLException, ClassNotFoundException {
         this.conn = conn;
         return this.rental.makeLineItem(id, qty, days, conn);
+    }
+    
+    public SalesLineItem enterReturnItem(String id, int qty, Connection conn) throws ClassNotFoundException, SQLException {
+        this.conn = conn;
+        return ret.makeLineItem(id, qty, conn);
     }
     
     public double getTotal() {
@@ -73,93 +87,133 @@ public class Register {
      return rental.getTotal();
     }
     
+    public double getReturnTotal() {
+        return ret.getTotal();
+    }
+    
     public void endSale() {
         if(sale != null)
         {
-        sale.becomeComplete();
-        }else
+            sale.becomeComplete();
+            sale = null;
+        }
+        else if(rental != null)
         {
-        rental.becomeComplete();
+            rental.becomeComplete();
+            rental = null;
+        }
+        else
+        {
+            ret.becomeComplete();
+            ret = null;
         }
     }
     
     public double makePayment(double amount) {
         if(sale != null)
         {
-        return this.sale.makePayment(amount);
-        }else
+            return this.sale.makePayment(amount);
+        }
+        else if(rental != null)
         {
-        return this.rental.makePayment(amount);
+            return this.rental.makePayment(amount);
+        }
+        else
+        {
+            return this.ret.makePayment();
         }
     }
     
     public void printReceipt() {
         if(sale != null)
         {
-        int transNum = 1; //TODO: generate actual transaction number earlier
-        ArrayList<SalesLineItem> salesLine = sale.getList();
-        try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
-            writer.write("\tSCRUM-MASTERS-INC.\n");
-            writer.write("\t" + transNum + "\n");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-            writer.write(dateFormat.format(sale.getTime()) + "\n");
-            writer.write("\t" + user.toUpperCase() + "\n\n");
-            for(int i = 0; i < salesLine.size(); i++) {
-                SalesLineItem temp = salesLine.get(i);
-                writer.write(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f\n", temp.getSubtotal())); 
+            int transNum = 1; //TODO: generate actual transaction number earlier
+            ArrayList<SalesLineItem> salesLine = sale.getList();
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+                writer.write("\tSCRUM-MASTERS-INC.\n");
+                writer.write("\t" + transNum + "\n");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                writer.write(dateFormat.format(sale.getTime()) + "\n");
+                writer.write("\t" + user.toUpperCase() + "\n\n");
+                for(int i = 0; i < salesLine.size(); i++) {
+                    SalesLineItem temp = salesLine.get(i);
+                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f\n", temp.getSubtotal())); 
+                }
+                writer.write(String.format("Subtotal\t\t%5.2f\n", this.getTotal()));
+                writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getTotal()*.07));
+                writer.write(String.format("Balance Due\t\t%5.2f\n", this.getTotal()*1.07));
+            } catch (IOException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
-            writer.write(String.format("Subtotal\t\t%5.2f\n", this.getTotal()));
-            writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getTotal()*.07));
-            writer.write(String.format("Balance Due\t\t%5.2f\n", this.getTotal()*1.07));
-        } catch (IOException ex) {
-            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }else
+        else if(rental != null)
         {
-        int transNum = 1; //TODO: generate actual transaction number earlier
-        ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
-        try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
-            writer.write("\tSCRUM-MASTERS-INC.\n");
-            writer.write("\tRENTAL\n");
-            writer.write("\t" + transNum + "\n");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-            writer.write(dateFormat.format(rental.getTime()) + "\n");
-            writer.write("\t" + user.toUpperCase() + "\n\n");
-            for(int i = 0; i < rentalLine.size(); i++) {
-                RentalLineItem temp = rentalLine.get(i);  
-                writer.write(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")"+ "\t%5.2f\n", temp.getSubtotal())+ "\tReturn Due: "+ dateFormat.format(temp.dueDate())+"\n"); 
+            int transNum = 1; //TODO: generate actual transaction number earlier
+            ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+                writer.write("\tSCRUM-MASTERS-INC.\n");
+                writer.write("\tRENTAL\n");
+                writer.write("\t" + transNum + "\n");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                writer.write(dateFormat.format(rental.getTime()) + "\n");
+                writer.write("\t" + user.toUpperCase() + "\n\n");
+                for(int i = 0; i < rentalLine.size(); i++) {
+                    RentalLineItem temp = rentalLine.get(i);  
+                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")"+ "\t%5.2f\n", temp.getSubtotal())+ "\tReturn Due: "+ dateFormat.format(temp.dueDate())+"\n"); 
+                }
+                writer.write(String.format("Subtotal\t\t%5.2f\n", this.getRTotal()));
+                writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getRTotal()*.07));
+                writer.write(String.format("Balance Due\t\t%5.2f\n", this.getRTotal()*1.07));
+            } catch (IOException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
-            writer.write(String.format("Subtotal\t\t%5.2f\n", this.getRTotal()));
-            writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getRTotal()*.07));
-            writer.write(String.format("Balance Due\t\t%5.2f\n", this.getRTotal()*1.07));
-        } catch (IOException ex) {
-            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        else
+        {
+            int transNum = ret.getTransNum(); //TODO: generate actual transaction number earlier
+            ArrayList<SalesLineItem> salesLine = ret.getList();
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+                writer.write("\tSCRUM-MASTERS-INC.\n");
+                writer.write("\t" + transNum + "\n");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                writer.write(dateFormat.format(ret.getTime()) + "\n");
+                writer.write("\t" + user.toUpperCase() + "\n\n");
+                for(int i = 0; i < salesLine.size(); i++) {
+                    SalesLineItem temp = salesLine.get(i);
+                    writer.write(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t-%5.2f\n", temp.getSubtotal())); 
+                }
+                writer.write(String.format("Subtotal\t\t%5.2f\n", this.getReturnTotal()));
+                writer.write(String.format("Sales Tax\t\t%5.2f\n", this.getReturnTotal()*.07));
+                writer.write(String.format("Balance Due\t\t%5.2f\n", this.getReturnTotal()*1.07));
+            } catch (IOException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public void returnItems() throws ClassNotFoundException, SQLException
     {
        Statement s = conn.createStatement();
-       if(sale != null)
-        {
-        for(int i = 0; i < sale.getList().size(); i++)
-        {
-        String id = sale.getList().get(i).getID();
-        int q = sale.getList().get(i).getQty();
-        String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
-        int rs = s.executeUpdate(sql);
-        }
-        }else
-        {
-        for(int i = 0; i < rental.getRentalLine().size(); i++)
-        {
-        String id = rental.getRentalLine().get(i).getID();
-        int q = rental.getRentalLine().get(i).getQuantity();
-        String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
-        int rs = s.executeUpdate(sql);
-        }
-        } 
+       if(ret != null)
+       {
+            for(int i = 0; i < ret.getList().size(); i++)
+            {
+                String id = ret.getList().get(i).getID();
+                int q = ret.getList().get(i).getQty();
+                String sql = "INSERT INTO scrum.returns VALUES (" + ret.getTransNum() + ", " + id + ", " + q + ")";
+                int rs = s.executeUpdate(sql);
+            }
+       }
+       else
+       {
+            for(int i = 0; i < rental.getRentalLine().size(); i++)
+            {
+                String id = rental.getRentalLine().get(i).getID();
+                int q = rental.getRentalLine().get(i).getQuantity();
+                String sql = "UPDATE test.items SET quantity = quantity + "+q+" WHERE id = " + id;
+                int rs = s.executeUpdate(sql);
+            }
+       } 
     }
     
     public void purchaseItems() throws ClassNotFoundException, SQLException
