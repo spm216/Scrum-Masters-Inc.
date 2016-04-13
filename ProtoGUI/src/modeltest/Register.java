@@ -29,12 +29,21 @@ public class Register {
     private Rental rental;
     private Return ret;
     private Connection conn;
+    private int level;
     
     Register() {
         this.regNum = 0;
         sale = null;
         rental = null;
         ret = null;
+    }
+    
+    public int getLevel(){
+        return level;
+    }
+    
+    public void setLevel(int lvl){
+        level = lvl;
     }
     
     public void setUser(String user) {
