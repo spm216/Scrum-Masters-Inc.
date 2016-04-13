@@ -37,7 +37,7 @@ class ProductDescription {
         rs = s.executeQuery(sql);
         while (rs.next()) {
            this.desc = rs.getString("name");
-           this.rentPrice = rs.getDouble("price");
+           this.rentPrice = rs.getDouble("rentprice");
         }
         if (desc == null){
             this.validItem = false;
