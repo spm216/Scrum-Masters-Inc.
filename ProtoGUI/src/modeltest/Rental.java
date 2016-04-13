@@ -24,6 +24,7 @@ class Rental {
     private double total;
     private boolean returned;
     private int dueTime;
+    private int transID;
     
     Rental(Date t) {
         this.isComplete = false;
@@ -45,6 +46,14 @@ class Rental {
     
     double getTotal() {
         return this.total;
+    }
+    
+    void setTransID(int transID) {
+        this.transID = transID;
+    }
+    
+    int getTransID() {
+        return transID;
     }
     
     double makePayment(double amount) {

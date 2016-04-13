@@ -26,6 +26,7 @@ class Sale {
     private Date time;
     private ArrayList<SalesLineItem> salesLine;
     private double total;
+    private int transID;
     
     Sale(Date t) {
         this.isComplete = false;
@@ -41,6 +42,14 @@ class Sale {
             this.total += item.getSubtotal();
         }
         return item;
+    }
+    
+    public void setTransID(int transID) {
+        this.transID = transID;
+    }
+    
+    public int getTransID() {
+        return transID;
     }
     
     double getTotal() {

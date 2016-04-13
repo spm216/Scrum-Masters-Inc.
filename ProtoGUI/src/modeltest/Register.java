@@ -45,6 +45,21 @@ public class Register {
         return this.user;
     }
 
+    public void setSaleTransID(int count) {
+        sale.setTransID(count);
+    }
+    
+    public int getSaleTransID() {
+        return sale.getTransID();
+    }
+    
+    public Sale getSale() {
+        return sale;
+    }
+    
+    public int getRentalTransID() {
+        return rental.getTransID();
+    }
     
     //creates new sale instance
     public Sale makeNewSale(Date time) {
@@ -127,7 +142,7 @@ public class Register {
     public void printReceipt() {
         if(sale != null)
         {
-            int transNum = 1; //TODO: generate actual transaction number earlier
+            int transNum = sale.getTransID(); //TODO: generate actual transaction number earlier
             String trans = String.format("%06d", transNum);
             ArrayList<SalesLineItem> salesLine = sale.getList();
             try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
@@ -203,8 +218,10 @@ public class Register {
             {
                 String id = ret.getList().get(i).getID();
                 int q = ret.getList().get(i).getQty();
-                String sql = "INSERT INTO scrum.returns VALUES (" + ret.getTransNum() + ", " + id + ", " + q + ")";
+                String sql = "INSERT INTO scrum.returns VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
                 int rs = s.executeUpdate(sql);
+                sql = "UPDATE scrum.retinv SET qty = qty + "+q+" WHERE itemid = " + id;
+                rs = s.executeUpdate(sql);
             }
        }
        else
@@ -228,7 +245,7 @@ public class Register {
         {
         String id = sale.getList().get(i).getID();
         int q = sale.getList().get(i).getQty();
-        String sql = "UPDATE scrum.lines SET qty = qty - "+q+" WHERE itemid = " + id;
+        String sql = "UPDATE scrum.salelines SET qty = qty - "+q+" WHERE itemid = " + id;
         int rs = s.executeUpdate(sql);
         }
         }else
