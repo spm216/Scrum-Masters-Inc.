@@ -206,7 +206,7 @@ public class Total extends javax.swing.JFrame {
 
     private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
         changeTextField.setText(String.format("%5.2f", reg.makePayment(Double.parseDouble(paymentTextField.getText()))));
-        reg.printReceipt();
+        reg.printReceipt(Double.parseDouble(paymentTextField.getText()));
         JOptionPane.showMessageDialog(null, "Cash Accepted. Thank you.");
     }//GEN-LAST:event_cashButtonActionPerformed
 

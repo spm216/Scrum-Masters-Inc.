@@ -31,6 +31,7 @@ public class Register {
     private Return ret;
     private Connection conn;
     private int level;
+    private String userName;
     
     Register() {
         this.regNum = 0;
@@ -54,7 +55,15 @@ public class Register {
     public String getUser() {
         return this.user;
     }
+    
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
+    public String getUserName() {
+        return userName;
+    }
+    
     public void setSaleTransID(int count) {
         sale.setTransID(count);
     }
@@ -157,7 +166,7 @@ public class Register {
         }
     }
     
-    public void printReceipt() {
+    public void printReceipt(double payment) {
         if(sale != null)
         {
             int transNum = sale.getTransID(); //TODO: generate actual transaction number earlier
@@ -168,14 +177,16 @@ public class Register {
                 writer.write(center(trans + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(center(dateFormat.format(sale.getTime())) + "\r\n");
-                writer.write(center(user.toUpperCase()) + "\r\n\r\n");
+                writer.write(center(userName.toUpperCase()) + "\r\n\r\n");
                 for(int i = 0; i < salesLine.size(); i++) {
                     SalesLineItem temp = salesLine.get(i);
                     writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f", temp.getSubtotal())) + "\r\n"); 
                 }
-                writer.write(center(String.format("Subtotal\t%5.2f", this.getTotal())) + "\r\n");
+                writer.write("\r\n" + center(String.format("Subtotal\t%5.2f", this.getTotal())) + "\r\n");
                 writer.write(center(String.format("Sales Tax\t%5.2f", this.getTotal()*.07)) + "\r\n");
-                writer.write(center(String.format("Balance Due\t%5.2f", this.getTotal()*1.07)));
+                writer.write(center(String.format("Balance Due\t%5.2f", this.getTotal()*1.07)) + "\r\n");
+                writer.write(center(String.format("Amount Paid\t%5.2f", payment)) + "\r\n");
+                writer.write(center(String.format("Change Due\t%5.2f", payment-this.getTotal()*1.07)));
             } catch (IOException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -265,8 +276,15 @@ public class Register {
             {
                 String id = sale.getList().get(i).getID();
                 int q = sale.getList().get(i).getQty();
-                String sql = "UPDATE scrum.salelines SET qty = qty - "+q+" WHERE itemid = " + id;
-                int rs = s.executeUpdate(sql);
+                String sql = "SELECT COUNT(*) AS lines FROM scrum.salelines";
+                ResultSet rs = s.executeQuery(sql);
+                rs.next();
+                int lineID = rs.getInt("lines");
+                lineID++;
+                sql = "INSERT INTO scrum.salelines VALUES (" + lineID + ", " + sale.getTransID() + ", " + id + ", " + q + ", false)";
+                s.executeUpdate(sql);
+                sql = "UPDATE scrum.inventory SET qty = qty - "+q+" WHERE itemid = " + id;
+                s.executeUpdate(sql);
             }
        }
        else

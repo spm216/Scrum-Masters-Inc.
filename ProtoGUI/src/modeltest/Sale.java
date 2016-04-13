@@ -57,7 +57,7 @@ class Sale {
     }
     
     double makePayment(double amount) {
-        return amount - this.total;
+        return amount - this.total*1.07;
     }
     
     void becomeComplete() {

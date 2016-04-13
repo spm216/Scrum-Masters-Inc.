@@ -133,7 +133,7 @@ public class returnTotal extends javax.swing.JFrame {
 
     private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
         
-        reg.printReceipt();
+        reg.printReceipt(5);
         try {
             reg.returnItems();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -156,7 +156,7 @@ public class returnTotal extends javax.swing.JFrame {
     }//GEN-LAST:event_cashButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
-        reg.printReceipt();
+        reg.printReceipt(5);
         try {
             reg.returnItems();
         } catch (ClassNotFoundException | SQLException ex) {

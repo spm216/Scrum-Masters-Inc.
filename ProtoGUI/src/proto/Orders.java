@@ -166,7 +166,7 @@ public class Orders extends javax.swing.JFrame {
             int count = rs.getInt("amount");
             count++;
             Timestamp t = new Timestamp(reg.getSaleTime().getTime());
-            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, 1, '" + t.toString() + "')";
+            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, true, '" + t.toString() + "')";
             s.executeUpdate(sql);
             reg.setSaleTransID(count);
         } catch (SQLException ex) {
@@ -196,7 +196,7 @@ public class Orders extends javax.swing.JFrame {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
         orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
-        totalTextField.setText(String.format("%5.2f", reg.getTotal()));
+        totalTextField.setText(String.format("%5.2f", reg.getTotal()*1.07));
     }//GEN-LAST:event_addButtonActionPerformed
                                           
 
