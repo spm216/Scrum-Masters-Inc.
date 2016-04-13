@@ -120,10 +120,10 @@ public class DeleteEmployee extends javax.swing.JFrame {
             Connection conn = store.getConn();
             Statement s = conn.createStatement();
             String id = idField.getText();
-            String sql = "SELECT cashierid FROM scrum.users WHERE cashierid =" + id;
+            String sql = "SELECT userid FROM scrum.users WHERE userid =" + id;
             ResultSet rs = s.executeQuery(sql);
             if (rs.next()){
-                sql = "DELETE FROM scrum.users WHERE cashierid = " + id;
+                sql = "DELETE FROM scrum.users WHERE userid = " + id;
                 s.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null, "Employee Deleted Forever and Ever.");
                 idField.setText("");

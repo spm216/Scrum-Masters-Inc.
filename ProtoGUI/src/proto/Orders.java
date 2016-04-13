@@ -166,7 +166,7 @@ public class Orders extends javax.swing.JFrame {
             int count = rs.getInt("amount");
             count++;
             Timestamp t = new Timestamp(reg.getSaleTime().getTime());
-            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, '" + t.toString() + "')";
+            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, 1, '" + t.toString() + "')";
             s.executeUpdate(sql);
             reg.setSaleTransID(count);
         } catch (SQLException ex) {

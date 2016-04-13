@@ -213,7 +213,7 @@ public class rOrders extends javax.swing.JFrame {
             int count = rs.getInt("amount");
             count++;
             System.out.println(count);
-            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, CURRENT_TIMESTAMP)";
+            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, 1, CURRENT_TIMESTAMP)";
             s.executeUpdate(sql);
             reg.setRentalTransID(count);
         } catch (SQLException ex) {

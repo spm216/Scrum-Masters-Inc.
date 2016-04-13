@@ -101,7 +101,7 @@ public class Login extends javax.swing.JFrame {
             //TODO: query user table
             Connection conn = store.getConn();
             Statement s = conn.createStatement();
-            String sql = "SELECT name, password, level FROM scrum.users where cashierid = " + idTextField.getText();
+            String sql = "SELECT name, password, level FROM scrum.users where userid = " + idTextField.getText();
             ResultSet rs = s.executeQuery(sql);
             if(rs.next()) {
                 String pass = rs.getString("password");

@@ -75,7 +75,7 @@ public class Store {
     {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/scrumMasters", "scrum", "scrum");
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/scrumDB", "scrum", "scrum");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Store.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -165,7 +165,7 @@ public class AddEmployee extends javax.swing.JFrame {
             // TODO add your handling code here:
             Connection conn = store.getConn();
             Statement s = conn.createStatement();
-            String sql = "SELECT cashierid FROM scrum.users WHERE cashierid =" + idField.getText();
+            String sql = "SELECT userid FROM scrum.users WHERE userid =" + idField.getText();
             ResultSet rs = s.executeQuery(sql);
             if (rs.next()){
                 JOptionPane.showMessageDialog(null, "Error: ID already exists.");

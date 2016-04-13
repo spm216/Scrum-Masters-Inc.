@@ -5,6 +5,8 @@
  */
 package proto;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -160,20 +162,28 @@ public class returnTotal extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(null, "Credit accepted. Thank you.");
-        reg.endSale();
-        if (reg.getLevel() > 1){
-            NewSaleManager f = new NewSaleManager(store);
-            f.pack();
-            f.setVisible(true);
-            dispose();
-        }
-        else{
-            NewSale f = new NewSale(store);
-            f.pack();
-            f.setVisible(true);
-            dispose();
-        }
+        
+        CreditPayment g = new CreditPayment(store);
+        g.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                reg.endSale();
+                if (reg.getLevel() > 1){
+                    NewSaleManager f = new NewSaleManager(store);
+                    f.pack();
+                    f.setVisible(true);
+                    dispose();
+                }
+                else{
+                    NewSale f = new NewSale(store);
+                    f.pack();
+                    f.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+        
+        
     }//GEN-LAST:event_creditButtonActionPerformed
 
     /**
