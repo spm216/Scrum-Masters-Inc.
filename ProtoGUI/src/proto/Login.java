@@ -108,6 +108,7 @@ public class Login extends javax.swing.JFrame {
                 if(pass.equals(new String(passTextField.getPassword()))) {
                 //if(Integer.parseInt(pass) == Integer.parseInt(passTextField.getPassword().toString())) {
                     int level = rs.getInt("level");
+                    store.getReg().setLevel(level);
                     if(level > 1) {
                         NewSaleManager f = new NewSaleManager(store);
                         store.getReg().setUser(idTextField.getText());

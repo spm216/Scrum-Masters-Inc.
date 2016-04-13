@@ -24,6 +24,7 @@ class Rental {
     private double total;
     private boolean returned;
     private int dueTime;
+    private int transID;
     
     Rental(Date t) {
         this.isComplete = false;
@@ -38,13 +39,21 @@ class Rental {
         RentalLineItem item = new RentalLineItem(id, qty, days, conn);
         if(item.isValid()) {
             this.rentalLine.add(item);
-            this.total += item.getSubtotal();
+            this.total += (item.getSubtotal()*(days/30));
         }
         return item;
     }
     
     double getTotal() {
         return this.total;
+    }
+    
+    void setTransID(int transID) {
+        this.transID = transID;
+    }
+    
+    int getTransID() {
+        return transID;
     }
     
     double makePayment(double amount) {

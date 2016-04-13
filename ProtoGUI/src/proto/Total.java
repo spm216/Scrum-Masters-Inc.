@@ -5,6 +5,11 @@
  */
 package proto;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modeltest.Register;
 import modeltest.Store;
 
@@ -149,13 +154,43 @@ public class Total extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateTransactions() {
+        Connection conn = store.getConn();
+        try {
+            Statement s = conn.createStatement();
+            if(reg.getSale() != null) {
+                String sql = "UPDATE scrum.transactions SET total = " + totalTextField.getText() + " WHERE transid = " + reg.getSaleTransID();
+                s.executeUpdate(sql);
+            }
+            else {
+                String sql = "UPDATE scrum.transactions SET total = " + totalTextField.getText() + " WHERE transid = " + reg.getRentalTransID();
+                s.executeUpdate(sql);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Total.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void endSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endSaleActionPerformed
-        reg.purchaseItems();
+        try {
+            reg.purchaseItems();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Total.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        updateTransactions();
         reg.endSale();
-        NewSaleManager f = new NewSaleManager(store);
-        f.pack();
-        f.setVisible(true);
-        dispose();
+        if (reg.getLevel() > 1){
+            NewSaleManager f = new NewSaleManager(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+        else{
+            NewSale f = new NewSale(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_endSaleActionPerformed
 
     private void paymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentButtonActionPerformed

@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package proto;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modeltest.Register;
@@ -28,6 +32,7 @@ public class Orders extends javax.swing.JFrame {
         Orders.store = store;
         this.reg = store.getReg();
         store.addSale();
+        createTransID();
     }
 
     /**
@@ -151,6 +156,24 @@ public class Orders extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void createTransID() {
+        Connection conn = store.getConn();
+        try {
+            Statement s = conn.createStatement();
+            String sql = "SELECT COUNT(*) AS amount FROM scrum.transactions";
+            ResultSet rs = s.executeQuery(sql);
+            rs.next();
+            int count = rs.getInt("amount");
+            count++;
+            Timestamp t = new Timestamp(reg.getSaleTime().getTime());
+            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, '" + t.toString() + "')";
+            s.executeUpdate(sql);
+            reg.setSaleTransID(count);
+        } catch (SQLException ex) {
+            Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         Total f = new Total(store);
         f.setTotalTextField(totalTextField.getText());

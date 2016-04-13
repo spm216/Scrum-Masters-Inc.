@@ -14,6 +14,7 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +30,21 @@ public class Register {
     private Rental rental;
     private Return ret;
     private Connection conn;
+    private int level;
     
     Register() {
         this.regNum = 0;
         sale = null;
         rental = null;
         ret = null;
+    }
+    
+    public int getLevel(){
+        return level;
+    }
+    
+    public void setLevel(int lvl){
+        level = lvl;
     }
     
     public void setUser(String user) {
@@ -45,6 +55,29 @@ public class Register {
         return this.user;
     }
 
+    public void setSaleTransID(int count) {
+        sale.setTransID(count);
+    }
+    
+    public int getSaleTransID() {
+        return sale.getTransID();
+    }
+    
+    public Date getSaleTime() {
+        return sale.getTime();
+    }
+    
+    public Sale getSale() {
+        return sale;
+    }
+    
+    public void setRentalTransID(int count) {
+        rental.setTransID(count);
+    }
+    
+    public int getRentalTransID() {
+        return rental.getTransID();
+    }
     
     //creates new sale instance
     public Sale makeNewSale(Date time) {
@@ -127,11 +160,12 @@ public class Register {
     public void printReceipt() {
         if(sale != null)
         {
-            int transNum = 1; //TODO: generate actual transaction number earlier
+            int transNum = sale.getTransID(); //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
             ArrayList<SalesLineItem> salesLine = sale.getList();
-            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
                 writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
-                writer.write(center(transNum + "") + "\r\n");
+                writer.write(center(trans + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(center(dateFormat.format(sale.getTime())) + "\r\n");
                 writer.write(center(user.toUpperCase()) + "\r\n\r\n");
@@ -149,11 +183,12 @@ public class Register {
         else if(rental != null)
         {
             int transNum = 1; //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
             ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
-            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
                 writer.write("\tSCRUM-MASTERS-INC.\r\n");
                 writer.write("\tRENTAL\r\n");
-                writer.write("\t" + transNum + "\r\n");
+                writer.write("\t" + trans + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(dateFormat.format(rental.getTime()) + "\r\n");
                 writer.write("\t" + user.toUpperCase() + "\r\n\r\n");
@@ -171,10 +206,11 @@ public class Register {
         else
         {
             int transNum = ret.getTransNum(); //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
             ArrayList<SalesLineItem> salesLine = ret.getList();
-            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + transNum + ".txt"), "utf-8"))) {
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
                 writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
-                writer.write(center(transNum + "") + "\r\n");
+                writer.write(center(trans + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(center(dateFormat.format(ret.getTime())) + "\r\n");
                 writer.write(center(user.toUpperCase()) + "\r\n\r\n");
@@ -200,7 +236,36 @@ public class Register {
             {
                 String id = ret.getList().get(i).getID();
                 int q = ret.getList().get(i).getQty();
-                String sql = "INSERT INTO scrum.returns VALUES (" + ret.getTransNum() + ", " + id + ", " + q + ")";
+                String sql = "INSERT INTO scrum.retlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
+                int rs = s.executeUpdate(sql);
+                sql = "UPDATE scrum.retinv SET qty = qty + "+q+" WHERE itemid = " + id;
+                rs = s.executeUpdate(sql);
+            }
+       }
+       else
+       {
+            for(int i = 0; i < rental.getRentalLine().size(); i++)
+            {
+                String id = rental.getRentalLine().get(i).getID();
+                int q = rental.getRentalLine().get(i).getQuantity();
+                String sql = "INSERT INTO scrum.rentlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ", CURRENT_DATE)";
+                int rs = s.executeUpdate(sql);
+                sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE itemid = " + id;
+                rs = s.executeUpdate(sql);
+            }
+       } 
+    }
+    
+    public void purchaseItems() throws ClassNotFoundException, SQLException
+    {
+       Statement s = conn.createStatement();
+       if(sale != null)
+       {
+            for(int i = 0; i < sale.getList().size(); i++)
+            {
+                String id = sale.getList().get(i).getID();
+                int q = sale.getList().get(i).getQty();
+                String sql = "UPDATE scrum.salelines SET qty = qty - "+q+" WHERE itemid = " + id;
                 int rs = s.executeUpdate(sql);
             }
        }
@@ -210,34 +275,22 @@ public class Register {
             {
                 String id = rental.getRentalLine().get(i).getID();
                 int q = rental.getRentalLine().get(i).getQuantity();
-                String sql = "UPDATE scrum.rentals SET qty = qty + "+q+" WHERE itemid = " + id;
-                int rs = s.executeUpdate(sql);
+                int days = rental.getRentalLine().get(i).getDays();
+                Calendar c = Calendar.getInstance();
+                c.setTime(rental.getTime());
+                System.out.println(c.toString());
+                c.add(Calendar.DATE, days);
+                System.out.println(c.toString());
+                Timestamp t = new Timestamp(c.getTime().getTime()); //THIS MAKES SENSE
+                String sql = "SELECT COUNT(*) AS lines FROM scrum.rentlines";
+                ResultSet rs = s.executeQuery(sql);
+                rs.next();
+                int lineID = rs.getInt("lines");
+                lineID++;
+                sql = "INSERT INTO scrum.rentlines VALUES (" + lineID + ", " + rental.getTransID() + ", " + id + ", " + q + ", '" + t.toString() + "')";
+                s.executeUpdate(sql);
             }
-       } 
-    }
-    
-    public void purchaseItems() throws ClassNotFoundException, SQLException
-    {
-       Statement s = conn.createStatement();
-       if(sale != null)
-        {
-        for(int i = 0; i < sale.getList().size(); i++)
-        {
-        String id = sale.getList().get(i).getID();
-        int q = sale.getList().get(i).getQty();
-        String sql = "UPDATE scrum.lines SET qty = qty - "+q+" WHERE itemid = " + id;
-        int rs = s.executeUpdate(sql);
-        }
-        }else
-        {
-        for(int i = 0; i < rental.getRentalLine().size(); i++)
-        {
-        String id = rental.getRentalLine().get(i).getID();
-        int q = rental.getRentalLine().get(i).getQuantity();
-        String sql = "UPDATE scrum.rentals SET qty = qty - "+q+" WHERE itemid = " + id;
-        int rs = s.executeUpdate(sql);
-        }
-        }      
+       }      
     }
     
     private String center (String s) {
