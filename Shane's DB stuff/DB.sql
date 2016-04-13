@@ -29,3 +29,10 @@ insert into scrum.INVENTORY (itemid, name, price, qty) values (28, 'Cold Cuts', 
 insert into scrum.INVENTORY (itemid, name, price, qty) values (29, 'Clams', 12.50, 70);
 insert into scrum.INVENTORY (itemid, name, price, qty) values (30, 'Lemonade', 4.25, 110);
 update scrum.INVENTORY set rentprice=price/2;
+insert into scrum.users (userid, name, password, level) values (1, 'Bill', '1', 1);
+insert into scrum.users (userid, name, password, level) values (2, 'Henry', '2', 2);
+insert into scrum.users (userid, name, password, level) values (3, 'Joe', '3', 3);
+insert into scrum.users (userid, name, password, level) values (4, 'Ian', '4', 4);
+insert into scrum.users (userid, name, password, level) values (5, 'Shane', '5', 1);
+insert into scrum.users (userid, name, password, level) values (6, 'Steve', '6', 2);
+insert into scrum.users (userid, name, password, level) values (7, 'Ryan', '7', 3);
