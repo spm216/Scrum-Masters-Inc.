@@ -29,7 +29,7 @@ public class RentalLineItem {
     }
     
     public double getSubtotal() {
-        return this.item.getSalePrice() * this.qty;
+        return this.item.getRentPrice() * this.qty;
     }
     
     public String getDesc() {
