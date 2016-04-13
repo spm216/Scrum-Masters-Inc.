@@ -1,9 +1,11 @@
-      SCRUM-MASTERS-INC.      
-            000001            
-  Tue, 12 Apr 2016 21:22:46   
-              1               
+	SCRUM-MASTERS-INC.
+	RENTAL
+	000001
+Tue, 12 Apr 2016 22:46:34
+	1
 
-       Apple(x2)	 1.00        
-        Subtotal	 1.00        
-       Sales Tax	 0.07        
-      Balance Due	 1.07       
+Apple(x2)	 1.00
+	Return Due: Sat, 16 Apr 2016 22:46:42
+Subtotal		 1.00
+Sales Tax		 0.07
+Balance Due		 1.07

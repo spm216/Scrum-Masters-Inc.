@@ -14,6 +14,7 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,8 +63,16 @@ public class Register {
         return sale.getTransID();
     }
     
+    public Date getSaleTime() {
+        return sale.getTime();
+    }
+    
     public Sale getSale() {
         return sale;
+    }
+    
+    public void setRentalTransID(int count) {
+        rental.setTransID(count);
     }
     
     public int getRentalTransID() {
@@ -249,24 +258,37 @@ public class Register {
     {
        Statement s = conn.createStatement();
        if(sale != null)
-        {
-        for(int i = 0; i < sale.getList().size(); i++)
-        {
-        String id = sale.getList().get(i).getID();
-        int q = sale.getList().get(i).getQty();
-        String sql = "UPDATE scrum.salelines SET qty = qty - "+q+" WHERE itemid = " + id;
-        int rs = s.executeUpdate(sql);
-        }
-        }else
-        {
-        for(int i = 0; i < rental.getRentalLine().size(); i++)
-        {
-        String id = rental.getRentalLine().get(i).getID();
-        int q = rental.getRentalLine().get(i).getQuantity();
-        String sql = "UPDATE scrum.rentals SET qty = qty - "+q+" WHERE itemid = " + id;
-        int rs = s.executeUpdate(sql);
-        }
-        }      
+       {
+            for(int i = 0; i < sale.getList().size(); i++)
+            {
+                String id = sale.getList().get(i).getID();
+                int q = sale.getList().get(i).getQty();
+                String sql = "UPDATE scrum.salelines SET qty = qty - "+q+" WHERE itemid = " + id;
+                int rs = s.executeUpdate(sql);
+            }
+       }
+       else
+       {
+            for(int i = 0; i < rental.getRentalLine().size(); i++)
+            {
+                String id = rental.getRentalLine().get(i).getID();
+                int q = rental.getRentalLine().get(i).getQuantity();
+                int days = rental.getRentalLine().get(i).getDays();
+                Calendar c = Calendar.getInstance();
+                c.setTime(rental.getTime());
+                System.out.println(c.toString());
+                c.add(Calendar.DATE, days);
+                System.out.println(c.toString());
+                Timestamp t = new Timestamp(c.getTime().getTime()); //THIS MAKES SENSE
+                String sql = "SELECT COUNT(*) AS lines FROM scrum.rentlines";
+                ResultSet rs = s.executeQuery(sql);
+                rs.next();
+                int lineID = rs.getInt("lines");
+                lineID++;
+                sql = "INSERT INTO scrum.rentlines VALUES (" + lineID + ", " + rental.getTransID() + ", " + id + ", " + q + ", '" + t.toString() + "')";
+                s.executeUpdate(sql);
+            }
+       }      
     }
     
     private String center (String s) {
