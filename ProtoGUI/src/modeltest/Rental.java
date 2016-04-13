@@ -39,7 +39,7 @@ class Rental {
         RentalLineItem item = new RentalLineItem(id, qty, days, conn);
         if(item.isValid()) {
             this.rentalLine.add(item);
-            this.total += (item.getSubtotal()*(days/30));
+            this.total += (item.getSubtotal()*days);
         }
         return item;
     }
