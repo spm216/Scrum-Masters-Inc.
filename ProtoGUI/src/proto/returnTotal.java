@@ -8,6 +8,7 @@ package proto;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Register;
 import modeltest.Store;
 
@@ -48,12 +49,11 @@ public class returnTotal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         orderList = new javax.swing.JTextArea();
-        paymentButton = new javax.swing.JButton();
-        changeLabel = new javax.swing.JLabel();
-        changeTextField = new javax.swing.JTextField();
+        cashButton = new javax.swing.JButton();
         totalLabel = new javax.swing.JLabel();
         totalTextField = new javax.swing.JTextField();
-        endSale = new javax.swing.JButton();
+        creditButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,27 +62,25 @@ public class returnTotal extends javax.swing.JFrame {
         orderList.setRows(5);
         jScrollPane1.setViewportView(orderList);
 
-        paymentButton.setText("Submit");
-        paymentButton.addActionListener(new java.awt.event.ActionListener() {
+        cashButton.setText("Cash");
+        cashButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentButtonActionPerformed(evt);
+                cashButtonActionPerformed(evt);
             }
         });
-
-        changeLabel.setText("Change:");
-
-        changeTextField.setEditable(false);
 
         totalLabel.setText("Your total is:");
 
         totalTextField.setEditable(false);
 
-        endSale.setText("End Sale");
-        endSale.addActionListener(new java.awt.event.ActionListener() {
+        creditButton.setText("Credit");
+        creditButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                endSaleActionPerformed(evt);
+                creditButtonActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Please choose method of financial return:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,27 +91,19 @@ public class returnTotal extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(changeLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(totalLabel)))
+                        .addGap(18, 18, 18)
+                        .addComponent(totalLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(changeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(endSale)
-                                .addGap(48, 48, 48))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(paymentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46))))))
+                            .addComponent(creditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,39 +115,66 @@ public class returnTotal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(totalLabel))
-                        .addGap(29, 29, 29)
-                        .addComponent(paymentButton)
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(changeLabel)
-                            .addComponent(changeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel1)
                         .addGap(26, 26, 26)
-                        .addComponent(endSale)
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addComponent(cashButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(creditButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void paymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentButtonActionPerformed
-        changeTextField.setText(String.format("%5.2f", reg.makePayment(0)));
+    private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
+        
         reg.printReceipt();
         try {
             reg.returnItems();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_paymentButtonActionPerformed
-
-    private void endSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endSaleActionPerformed
+        JOptionPane.showMessageDialog(null, "Cash returned. Thank you.");
         reg.endSale();
-        NewSaleManager f = new NewSaleManager(store);
-        f.pack();
-        f.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_endSaleActionPerformed
+        if (reg.getLevel() > 1){
+            NewSaleManager f = new NewSaleManager(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+        else{
+            NewSale f = new NewSale(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_cashButtonActionPerformed
+
+    private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
+        reg.printReceipt();
+        try {
+            reg.returnItems();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Credit accepted. Thank you.");
+        reg.endSale();
+        if (reg.getLevel() > 1){
+            NewSaleManager f = new NewSaleManager(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+        else{
+            NewSale f = new NewSale(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_creditButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,12 +212,11 @@ public class returnTotal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel changeLabel;
-    private javax.swing.JTextField changeTextField;
-    private javax.swing.JButton endSale;
+    private javax.swing.JButton cashButton;
+    private javax.swing.JButton creditButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea orderList;
-    private javax.swing.JButton paymentButton;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalTextField;
     // End of variables declaration//GEN-END:variables

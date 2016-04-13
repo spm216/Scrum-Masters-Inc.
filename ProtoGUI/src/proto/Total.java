@@ -159,10 +159,18 @@ public class Total extends javax.swing.JFrame {
             Logger.getLogger(Total.class.getName()).log(Level.SEVERE, null, ex);
         }
         reg.endSale();
-        NewSaleManager f = new NewSaleManager(store);
-        f.pack();
-        f.setVisible(true);
-        dispose();
+        if (reg.getLevel() > 1){
+            NewSaleManager f = new NewSaleManager(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+        else{
+            NewSale f = new NewSale(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_endSaleActionPerformed
 
     private void paymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentButtonActionPerformed
