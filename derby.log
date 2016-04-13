@@ -12,3 +12,9 @@ os.arch=x86_64
 os.version=10.11.3
 derby.system.home=/Users/Shane/Desktop/CSE 216/Scrum-Masters-Inc.
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Apr 12 21:21:32 EDT 2016: Shutting down Derby engine
+----------------------------------------------------------------
+Tue Apr 12 21:21:32 EDT 2016:
+Shutting down instance a816c00e-0154-0c85-6b76-fffff7928f77 on database directory /Users/Shane/Desktop/CSE 216/Scrum-Masters-Inc./scrumMasters with class loader sun.misc.Launcher$AppClassLoader@266474c2 
+----------------------------------------------------------------
