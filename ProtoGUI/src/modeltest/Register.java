@@ -236,7 +236,7 @@ public class Register {
             {
                 String id = ret.getList().get(i).getID();
                 int q = ret.getList().get(i).getQty();
-                String sql = "INSERT INTO scrum.returns VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
+                String sql = "INSERT INTO scrum.retlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
                 int rs = s.executeUpdate(sql);
                 sql = "UPDATE scrum.retinv SET qty = qty + "+q+" WHERE itemid = " + id;
                 rs = s.executeUpdate(sql);
@@ -248,8 +248,10 @@ public class Register {
             {
                 String id = rental.getRentalLine().get(i).getID();
                 int q = rental.getRentalLine().get(i).getQuantity();
-                String sql = "UPDATE scrum.rentals SET qty = qty + "+q+" WHERE itemid = " + id;
+                String sql = "INSERT INTO scrum.rentlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ", CURRENT_DATE)";
                 int rs = s.executeUpdate(sql);
+                sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE itemid = " + id;
+                rs = s.executeUpdate(sql);
             }
        } 
     }
