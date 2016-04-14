@@ -1,0 +1,12 @@
+      SCRUM-MASTERS-INC.      
+            000014            
+  Thu, 14 Apr 2016 13:26:48   
+             BILL             
+
+       bread(x4)	10.00        	Return Due: Sat, 16 Apr 2016 13:27:07
+
+        Subtotal	20.00        
+       Sales Tax	 1.40        
+      Balance Due	21.40       
+      Amount Paid	20.00       
+       Change Due	-1.40       

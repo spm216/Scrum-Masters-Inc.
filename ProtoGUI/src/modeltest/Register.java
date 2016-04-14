@@ -337,6 +337,8 @@ public class Register {
                 lineID++;
                 sql = "INSERT INTO scrum.rentlines VALUES (" + lineID + ", " + rental.getTransID() + ", " + id + ", " + q + ", '" + t.toString() + "', false)";
                 s.executeUpdate(sql);
+                sql = "UPDATE scrum.inventory SET qty = qty - "+ q +" WHERE itemid = " + id;
+                s.executeUpdate(sql);
             }
        }      
     }
