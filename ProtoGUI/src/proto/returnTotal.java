@@ -22,6 +22,7 @@ public class returnTotal extends javax.swing.JFrame {
 
     static Store store;
     Register reg;
+    String transID;
     
     /**
      * Creates new form returnTotal
@@ -131,33 +132,37 @@ public class returnTotal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    void setTransID(String transID) {
+        this.transID = transID;
+    }
+    
     private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
-        reg.printReceipt(5);
+        reg.printReceipt(0);
         try {
-            reg.returnItems();
+            reg.returnItems(transID);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
         }
-            JOptionPane.showMessageDialog(null, "Cash returned. Thank you.");
-            reg.endSale();
-            if (reg.getLevel() > 1){
-                NewSaleManager f = new NewSaleManager(store);
-                f.pack();
-                f.setVisible(true);
-                dispose();
-            }
-            else{
-                NewSale f = new NewSale(store);
-                f.pack();
-                f.setVisible(true);
-                dispose();
-            }
+        JOptionPane.showMessageDialog(null, "Cash returned. Thank you.");
+        reg.endSale();
+        if (reg.getLevel() > 1){
+            NewSaleManager f = new NewSaleManager(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
+        else{
+            NewSale f = new NewSale(store);
+            f.pack();
+            f.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_cashButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
         reg.printReceipt(5);
         try{
-            reg.returnItems();
+            reg.returnItems(transID);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
         }

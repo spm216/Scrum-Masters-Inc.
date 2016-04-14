@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ public class returnOrders extends javax.swing.JFrame {
         this.store = store;
         reg = store.getReg();
         store.addReturn();
+        createTransID();
     }
 
     /**
@@ -179,9 +181,11 @@ public class returnOrders extends javax.swing.JFrame {
             rs.next();
             int count = rs.getInt("amount");
             count++;
-            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, CURRENT_TIMESTAMP, NULL)";
+            Timestamp t = new Timestamp(reg.getReturnTime().getTime());
+            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0.0, '" + t.toString() + "', NULL)";
             s.executeUpdate(sql);
             reg.setReturnTransID(count);
+            System.out.println(count);
         } catch (SQLException ex) {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -221,6 +225,7 @@ public class returnOrders extends javax.swing.JFrame {
         returnTotal f = new returnTotal(store);
         f.setTotalTextField(totalTextField.getText());
         f.setOrderTextArea(orderList.getText());
+        f.setTransID(transIDTextField.getText());
         f.pack();
         f.setVisible(true);
         dispose();

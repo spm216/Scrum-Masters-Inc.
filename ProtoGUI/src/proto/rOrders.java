@@ -250,7 +250,7 @@ public class rOrders extends javax.swing.JFrame {
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
         try {         
-            reg.returnItems();
+            reg.returnItems("");
             reg.endSale();
             NewSaleManager f = new NewSaleManager(store);
             f.pack();

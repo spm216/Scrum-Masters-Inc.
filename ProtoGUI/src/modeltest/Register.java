@@ -77,6 +77,10 @@ public class Register {
         return sale.getTime();
     }
     
+    public Date getReturnTime() {
+        return ret.getTime();
+    }
+    
     public Sale getSale() {
         return sale;
     }
@@ -250,7 +254,7 @@ public class Register {
         }
     }
     
-    public void returnItems() throws ClassNotFoundException, SQLException
+    public void returnItems(String transID) throws ClassNotFoundException, SQLException
     {
        Statement s = conn.createStatement();
        if(ret != null)
@@ -259,12 +263,17 @@ public class Register {
             {
                 String id = ret.getList().get(i).getID();
                 int q = ret.getList().get(i).getQty();
-                String sql = "INSERT INTO scrum.returnlines VALUES (" + i + ", " + ret.getTransID() + ", " + id + ", " + q + ")";
-                int rs = s.executeUpdate(sql);
+                String sql = "SELECT COUNT(*) AS lines FROM scrum.salelines";
+                ResultSet rs = s.executeQuery(sql);
+                rs.next();
+                int lineID = rs.getInt("lines");
+                lineID++;
+                sql = "INSERT INTO scrum.returnlines VALUES (" + lineID + ", " + ret.getTransID() + ", " + id + ", " + q + ")";
+                s.executeUpdate(sql);
                 sql = "UPDATE scrum.returninv SET qty = qty + "+q+" WHERE itemid = " + id;
-                rs = s.executeUpdate(sql);
-                sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransID() + " AND itemid = " + id;
-                rs = s.executeUpdate(sql);
+                s.executeUpdate(sql);
+                sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + transID + " AND itemid = " + id;
+                s.executeUpdate(sql);
             }
         }
         else
