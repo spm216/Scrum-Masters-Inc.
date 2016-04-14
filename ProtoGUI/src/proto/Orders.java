@@ -185,7 +185,7 @@ public class Orders extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     public void setUserTextField() {
-        userTextField.setText(reg.getUser());
+        userTextField.setText(reg.getUserName());
     }
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed

@@ -140,6 +140,7 @@ public class NewSaleManager extends javax.swing.JFrame {
 
     private void newSale1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSale1ActionPerformed
         rOrders f = new rOrders(store);
+        f.setUserTextField();
         f.pack();
         f.setVisible(true);
         dispose();

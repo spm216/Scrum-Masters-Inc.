@@ -5,6 +5,7 @@
  */
 package proto;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import modeltest.Register;
 import modeltest.SalesLineItem;
 import modeltest.Store;
+import static proto.rOrders.store;
 
 /**
  *
@@ -168,6 +170,23 @@ public class returnOrders extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void createTransID() {
+        Connection conn = store.getConn();
+        try {
+            Statement s = conn.createStatement();
+            String sql = "SELECT COUNT(*) AS amount FROM scrum.transactions";
+            ResultSet rs = s.executeQuery(sql);
+            rs.next();
+            int count = rs.getInt("amount");
+            count++;
+            sql = "INSERT INTO scrum.transactions VALUES (" + count + ", " + reg.getUser() + ", 0, CURRENT_TIMESTAMP, NULL)";
+            s.executeUpdate(sql);
+            reg.setReturnTransID(count);
+        } catch (SQLException ex) {
+            Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         try {
             Statement s = store.getConn().createStatement();
@@ -208,7 +227,7 @@ public class returnOrders extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     public void setUserTextField() {
-        userTextField.setText(reg.getUser());
+        userTextField.setText(reg.getUserName());
     }
     
     /**

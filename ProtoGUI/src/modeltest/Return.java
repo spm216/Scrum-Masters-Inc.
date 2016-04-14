@@ -19,14 +19,13 @@ public class Return {
     private Date time;
     private ArrayList<SalesLineItem> salesLine;
     private double total;
-    private int transNum;
+    private int transID;
     
     Return(Date t) {
         this.isComplete = false;
         this.time = t;
         this.salesLine = new ArrayList<SalesLineItem>();
         this.total = 0;
-        this.transNum = 1;
     }
     
     SalesLineItem makeLineItem(String id, int qty, Connection conn) throws ClassNotFoundException, SQLException {
@@ -42,8 +41,12 @@ public class Return {
         return this.total;
     }
     
-    int getTransNum() {
-        return transNum;
+    void setTransID(int transID) {
+        this.transID = transID;
+    }
+    
+    int getTransID() {
+        return transID;
     }
     
     double makePayment() {

@@ -89,6 +89,14 @@ public class Register {
         return rental.getTransID();
     }
     
+    public void setReturnTransID(int count) {
+        ret.setTransID(count);
+    }
+    
+    public int getReturnTransID() {
+        return ret.getTransID();
+    }
+    
     //creates new sale instance
     public Sale makeNewSale(Date time) {
         this.sale = new Sale(time);
@@ -218,7 +226,7 @@ public class Register {
         }
         else
         {
-            int transNum = ret.getTransNum(); //TODO: generate actual transaction number earlier
+            int transNum = ret.getTransID(); //TODO: generate actual transaction number earlier
             String trans = String.format("%06d", transNum);
             ArrayList<SalesLineItem> salesLine = ret.getList();
             try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
@@ -251,11 +259,11 @@ public class Register {
             {
                 String id = ret.getList().get(i).getID();
                 int q = ret.getList().get(i).getQty();
-                String sql = "INSERT INTO scrum.returnlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
+                String sql = "INSERT INTO scrum.returnlines VALUES (" + i + ", " + ret.getTransID() + ", " + id + ", " + q + ")";
                 int rs = s.executeUpdate(sql);
                 sql = "UPDATE scrum.returninv SET qty = qty + "+q+" WHERE itemid = " + id;
                 rs = s.executeUpdate(sql);
-                sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
+                sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransID() + " AND itemid = " + id;
                 rs = s.executeUpdate(sql);
             }
         }
@@ -264,7 +272,7 @@ public class Register {
             for(int i = 0; i < rental.getRentalLine().size(); i++)
             {
                 String id = rental.getRentalLine().get(i).getID();
-                int transNum= ret.getTransNum();
+                int transNum= ret.getTransID();
                 String sql = "SELECT * FROM scrum.rentlines WHERE transid = " + transNum + " AND itemid = " + id;
                 ResultSet rst = s.executeQuery(sql);
                 if(!rst.next()){
