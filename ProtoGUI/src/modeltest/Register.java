@@ -291,7 +291,7 @@ public class Register {
                     int q = rental.getRentalLine().get(i).getQuantity();
                     sql = "UPDATE scrum.rentlines SET returned = True WHERE transid = " + transNum + " and itemid = " + id;
                     int rs = s.executeUpdate(sql);
-                    sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE transid = " + transNum + " and itemid = " + id;
+                    sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE itemid = " + id;
                     rs = s.executeUpdate(sql);
                 }
             }
@@ -336,7 +336,7 @@ public class Register {
                 rs.next();
                 int lineID = rs.getInt("lines");
                 lineID++;
-                sql = "INSERT INTO scrum.rentlines VALUES (" + lineID + ", " + rental.getTransID() + ", " + id + ", " + q + ", '" + t.toString() + "')";
+                sql = "INSERT INTO scrum.rentlines VALUES (" + lineID + ", " + rental.getTransID() + ", " + id + ", " + q + ", '" + t.toString() + "', false)";
                 s.executeUpdate(sql);
             }
        }      
