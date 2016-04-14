@@ -36,3 +36,8 @@ insert into scrum.users (userid, name, password, level) values (4, 'Ian', '4', 4
 insert into scrum.users (userid, name, password, level) values (5, 'Shane', '5', 1);
 insert into scrum.users (userid, name, password, level) values (6, 'Steve', '6', 2);
 insert into scrum.users (userid, name, password, level) values (7, 'Ryan', '7', 3);
+insert into scrum.creditinfo (creditnum, expdate) values ('1234567891234567', '2017-06-01');
+insert into scrum.creditinfo (creditnum, expdate) values ('1234567899876543', '2017-01-01');
+insert into scrum.creditinfo (creditnum, expdate) values ('1234567891826344', '2018-03-01');
+insert into scrum.creditinfo (creditnum, expdate) values ('6666666666666666', '2015-12-01');
+insert into scrum.creditinfo (creditnum, expdate) values ('9999999999999999', '2017-03-01');
