@@ -132,15 +132,12 @@ public class returnTotal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
-        
         reg.printReceipt(5);
-        boolean success = false;
         try {
-            success = reg.returnItems();
+            reg.returnItems();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(success){
             JOptionPane.showMessageDialog(null, "Cash returned. Thank you.");
             reg.endSale();
             if (reg.getLevel() > 1){
@@ -155,21 +152,16 @@ public class returnTotal extends javax.swing.JFrame {
                 f.setVisible(true);
                 dispose();
             }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Item was not purchased here.");
-        }
     }//GEN-LAST:event_cashButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
         reg.printReceipt(5);
-        boolean success = false;
-        try {
-            success = reg.returnItems();
+        try{
+            reg.returnItems();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(success){
+        
         CreditPayment g = new CreditPayment(store);
         g.addWindowListener(new WindowAdapter(){
             @Override
@@ -189,10 +181,7 @@ public class returnTotal extends javax.swing.JFrame {
                 }
             }
         });
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Item was not purchased here");
-        }
+        
         
         
     }//GEN-LAST:event_creditButtonActionPerformed

@@ -242,7 +242,7 @@ public class Register {
         }
     }
     
-    public boolean returnItems() throws ClassNotFoundException, SQLException
+    public void returnItems() throws ClassNotFoundException, SQLException
     {
        Statement s = conn.createStatement();
        if(ret != null)
@@ -250,23 +250,13 @@ public class Register {
             for(int i = 0; i < ret.getList().size(); i++)
             {
                 String id = ret.getList().get(i).getID();
-                String sql = "SELECT returned FROM scrum.salelines WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
-                ResultSet rst = s.executeQuery(sql);
-                if(!rst.next()){
-                    return false;
-                }
-                else{
-                    if(!rst.getBoolean("returned")){
-                        int q = ret.getList().get(i).getQty();
-                        sql = "INSERT INTO scrum.returnlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
-                        int rs = s.executeUpdate(sql);
-                        sql = "UPDATE scrum.returninv SET qty = qty + "+q+" WHERE itemid = " + id;
-                        rs = s.executeUpdate(sql);
-                        sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
-                        rs = s.executeUpdate(sql);
-                        
-                    }
-                }
+                int q = ret.getList().get(i).getQty();
+                String sql = "INSERT INTO scrum.returnlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
+                int rs = s.executeUpdate(sql);
+                sql = "UPDATE scrum.returninv SET qty = qty + "+q+" WHERE itemid = " + id;
+                rs = s.executeUpdate(sql);
+                sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
+                rs = s.executeUpdate(sql);
             }
         }
         else
@@ -279,7 +269,6 @@ public class Register {
                 ResultSet rst = s.executeQuery(sql);
                 if(!rst.next()){
                     JOptionPane.showMessageDialog(null,"Product has not been rented here.");
-                    return false;
                 }
                 else{
                     int q = rental.getRentalLine().get(i).getQuantity();
@@ -290,7 +279,6 @@ public class Register {
                 }
             }
         } 
-        return true;
     }
     
     public void purchaseItems() throws ClassNotFoundException, SQLException
