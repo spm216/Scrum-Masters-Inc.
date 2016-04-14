@@ -238,7 +238,7 @@ public class Register {
                 writer.write(center(trans + "") + "\r\n");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
                 writer.write(center(dateFormat.format(ret.getTime())) + "\r\n");
-                writer.write(center(user.toUpperCase()) + "\r\n\r\n");
+                writer.write(center(userName.toUpperCase()) + "\r\n\r\n");
                 for(int i = 0; i < salesLine.size(); i++) {
                     SalesLineItem temp = salesLine.get(i);
                     writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t-%5.2f", temp.getSubtotal())) + "\r\n"); 
