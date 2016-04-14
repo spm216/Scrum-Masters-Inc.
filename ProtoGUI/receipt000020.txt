@@ -1,0 +1,12 @@
+      SCRUM-MASTERS-INC.      
+            000020            
+  Wed, 13 Apr 2016 22:57:27   
+             IAN              
+
+       bread(x32)	80.00       	Return Due: Mon, 18 Apr 2016 22:57:40
+
+       Subtotal	400.00        
+       Sales Tax	28.00        
+      Balance Due	428.00      
+      Amount Paid	400.00      
+      Change Due	-28.00       

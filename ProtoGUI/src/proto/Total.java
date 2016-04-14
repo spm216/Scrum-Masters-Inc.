@@ -212,7 +212,15 @@ public class Total extends javax.swing.JFrame {
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
         // TODO add your handling code here:
+        int transID;
+        if(reg.getSale() != null) {
+            transID = reg.getSaleTransID();
+        }
+        else {
+            transID = reg.getRentalTransID();
+        }
         CreditPayment f = new CreditPayment(store);
+        f.setTransID(transID);
         f.pack();
         f.setVisible(true);
         paymentTextField.setText(totalTextField.getText());
