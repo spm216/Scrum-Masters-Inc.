@@ -281,15 +281,14 @@ public class Register {
             for(int i = 0; i < rental.getRentalLine().size(); i++)
             {
                 String id = rental.getRentalLine().get(i).getID();
-                int transNum= ret.getTransID();
-                String sql = "SELECT * FROM scrum.rentlines WHERE transid = " + transNum + " AND itemid = " + id;
+                String sql = "SELECT * FROM scrum.rentlines WHERE transid = " + transID + " AND itemid = " + id;
                 ResultSet rst = s.executeQuery(sql);
                 if(!rst.next()){
                     JOptionPane.showMessageDialog(null,"Product has not been rented here.");
                 }
                 else{
                     int q = rental.getRentalLine().get(i).getQuantity();
-                    sql = "UPDATE scrum.rentlines SET returned = True WHERE transid = " + transNum + " and itemid = " + id;
+                    sql = "UPDATE scrum.rentlines SET returned = True WHERE transid = " + transID + " and itemid = " + id;
                     int rs = s.executeUpdate(sql);
                     sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE itemid = " + id;
                     rs = s.executeUpdate(sql);

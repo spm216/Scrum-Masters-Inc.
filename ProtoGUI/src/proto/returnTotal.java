@@ -163,6 +163,7 @@ public class returnTotal extends javax.swing.JFrame {
         
         
         CreditPayment g = new CreditPayment(store);
+        g.setTransID(reg.getReturnTransID());
         g.pack();
         g.setVisible(true);
         g.addWindowListener(new WindowAdapter(){

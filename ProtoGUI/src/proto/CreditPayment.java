@@ -23,6 +23,7 @@ import static proto.Login.store;
 public class CreditPayment extends javax.swing.JFrame {
 
     static Store store;
+    int transID;
     /**
      * Creates new form CreditPayment
      */
@@ -96,6 +97,10 @@ public class CreditPayment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    void setTransID(int transID) {
+        this.transID = transID;
+    }
+    
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         try {
             // TODO add your handling code here:
@@ -116,6 +121,8 @@ public class CreditPayment extends javax.swing.JFrame {
                     ccnField.setText("");
                 }
                 else{
+                    sql = "UPDATE scrum.transactions SET creditnum = '" + ccnField.getText() + "' WHERE transid = " + transID;
+                    s.executeUpdate(sql);
                     JOptionPane.showMessageDialog(null, "Credit Card Accepted");
                     dispose();
                 }

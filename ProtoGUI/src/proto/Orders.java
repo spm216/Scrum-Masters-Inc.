@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Register;
 import modeltest.SalesLineItem;
 import modeltest.Store;
@@ -208,8 +209,13 @@ public class Orders extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
-        totalTextField.setText(String.format("%5.2f", reg.getTotal()*1.07));
+        if(line.getDesc() == null) {
+            JOptionPane.showMessageDialog(null, "Invalid Item ID");
+        }
+        else {
+            orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
+            totalTextField.setText(String.format("%5.2f", reg.getTotal()*1.07));
+        }
         idTextField.setText("");
         qtyTextField.setText("");
     }//GEN-LAST:event_addButtonActionPerformed
