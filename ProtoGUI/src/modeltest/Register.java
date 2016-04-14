@@ -205,8 +205,8 @@ public class Register {
             writer.write(center(userName.toUpperCase()) + "\r\n\r\n");
             for(int i = 0; i < rentalLine.size(); i++) {
                 RentalLineItem temp = rentalLine.get(i);
-                writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f", temp.getSubtotal())) + "\tReturn Due: "+ dateFormat.format(temp.dueDate())+ "\r\n"); 
-                }
+                writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")" + "\t%5.2f", temp.getSubtotal())) + "\tReturn Due: "+ dateFormat.format(temp.dueDate())+ "\r\n"); 
+               }
             writer.write("\r\n" + center(String.format("Subtotal\t%5.2f", this.getRTotal())) + "\r\n");
             writer.write(center(String.format("Sales Tax\t%5.2f", this.getRTotal()*.07)) + "\r\n");
             writer.write(center(String.format("Balance Due\t%5.2f", this.getRTotal()*1.07)) + "\r\n");

@@ -1,11 +1,13 @@
       SCRUM-MASTERS-INC.      
             000001            
-  Wed, 13 Apr 2016 20:21:20   
-              4               
+  Wed, 13 Apr 2016 20:24:42   
+             IAN              
 
-      Shovel(x2)	-28.00       
-       Subtotal	-28.00        
-       Sales Tax	-1.96        
-      Balance Due	-29.96      
-      Amount Paid	 5.00       
-       Change Due	34.96       
+    Water Pack(x32)	319.68    
+       Cereal(x4)	13.20       
+
+       Subtotal	332.88        
+       Sales Tax	23.30        
+      Balance Due	356.18      
+      Amount Paid	400.00      
+       Change Due	43.82       
