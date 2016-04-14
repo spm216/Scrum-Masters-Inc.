@@ -134,8 +134,8 @@ public class NewSaleManager extends javax.swing.JFrame {
     }//GEN-LAST:event_newSaleActionPerformed
 
     private void shutdownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shutdownButtonActionPerformed
-        // TODO add your handling code here:
-        System.exit(1);
+        store.closeConn();
+        System.exit(0);
     }//GEN-LAST:event_shutdownButtonActionPerformed
 
     private void newSale1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSale1ActionPerformed

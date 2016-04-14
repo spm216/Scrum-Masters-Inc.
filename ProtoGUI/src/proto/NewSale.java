@@ -122,7 +122,7 @@ public class NewSale extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         store.closeConn();
-        System.exit(1);
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void newSale1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSale1ActionPerformed

@@ -5,10 +5,13 @@
  */
 package proto;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Register;
 import modeltest.SalesLineItem;
 import modeltest.Store;
@@ -53,6 +56,8 @@ public class returnOrders extends javax.swing.JFrame {
         idTextField = new javax.swing.JTextField();
         userTextField = new javax.swing.JTextField();
         qtyTextField = new javax.swing.JTextField();
+        transIDLabel = new javax.swing.JLabel();
+        transIDTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +92,8 @@ public class returnOrders extends javax.swing.JFrame {
 
         userTextField.setEditable(false);
 
+        transIDLabel.setText("TransactionID");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,18 +113,24 @@ public class returnOrders extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(idLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(qtyLabel)
-                            .addGap(18, 18, 18)
-                            .addComponent(qtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(submitButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(idLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(qtyLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(qtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(submitButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(transIDLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(transIDTextField)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,15 +140,18 @@ public class returnOrders extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userLabel)
                     .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(transIDLabel)
+                            .addComponent(transIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idLabel))
-                        .addGap(41, 41, 41)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(qtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(qtyLabel))
@@ -146,7 +162,7 @@ public class returnOrders extends javax.swing.JFrame {
                     .addComponent(totalLabel)
                     .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(submitButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -154,12 +170,32 @@ public class returnOrders extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         try {
-            line = reg.enterReturnItem(idTextField.getText(), Integer.parseInt(qtyTextField.getText()), store.getConn());
+            Statement s = store.getConn().createStatement();
+            String id = idTextField.getText();
+            String sql = "SELECT returned FROM scrum.salelines WHERE transid = " + transIDTextField.getText() + " AND itemid = " + id;
+            ResultSet rs = s.executeQuery(sql);
+            if(!rs.next()){
+                JOptionPane.showMessageDialog(null,"Product has not been purchased here.");
+                transIDTextField.setText("");
+                idTextField.setText("");
+                qtyTextField.setText("");
+            }
+            else{
+                if(!rs.getBoolean("returned")) {
+                    line = reg.enterReturnItem(id, Integer.parseInt(qtyTextField.getText()), store.getConn());
+                    orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t-" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
+                    totalTextField.setText(String.format("%5.2f", reg.getReturnTotal()*1.07));
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,"Product has already been returned.");
+                    transIDTextField.setText("");
+                    idTextField.setText("");
+                    qtyTextField.setText("");
+                }
+            }
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(returnOrders.class.getName()).log(Level.SEVERE, null, ex);
         }
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t-" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
-        totalTextField.setText(String.format("%5.2f", reg.getReturnTotal()*1.07));
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
@@ -221,6 +257,8 @@ public class returnOrders extends javax.swing.JFrame {
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalTextField;
+    private javax.swing.JLabel transIDLabel;
+    private javax.swing.JTextField transIDTextField;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables

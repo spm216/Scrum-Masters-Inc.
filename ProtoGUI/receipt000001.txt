@@ -1,13 +1,11 @@
       SCRUM-MASTERS-INC.      
             000001            
-  Wed, 13 Apr 2016 20:24:42   
-             IAN              
+  Wed, 13 Apr 2016 20:53:12   
+              4               
 
-    Water Pack(x32)	319.68    
-       Cereal(x4)	13.20       
-
-       Subtotal	332.88        
-       Sales Tax	23.30        
-      Balance Due	356.18      
-      Amount Paid	400.00      
-       Change Due	43.82       
+   Water Pack(x32)	-319.68    
+       Subtotal	-319.68       
+       Sales Tax	-22.38       
+     Balance Due	-342.06      
+      Amount Paid	 5.00       
+      Change Due	347.06       
