@@ -1,0 +1,13 @@
+      SCRUM-MASTERS-INC.      
+            000006            
+  Wed, 13 Apr 2016 22:37:01   
+             IAN              
+
+       Cereal(x3)	 9.90       
+       Cereal(x3)	 9.90       
+
+        Subtotal	19.80        
+       Sales Tax	 1.39        
+      Balance Due	21.19       
+      Amount Paid	21.19       
+       Change Due	 0.00       
