@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modeltest.Register;
 import modeltest.RentalLineItem;
 import modeltest.Store;
@@ -258,13 +259,19 @@ public class rOrders extends javax.swing.JFrame {
     }//GEN-LAST:event_qtyTextFieldActionPerformed
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
-     try {         
-        reg.returnItems();
-        reg.endSale();
-        NewSaleManager f = new NewSaleManager(store);
-        f.pack();
-        f.setVisible(true);
-        dispose();
+        boolean success = false;
+        try {         
+            success = reg.returnItems();
+            if(success){
+                reg.endSale();
+                NewSaleManager f = new NewSaleManager(store);
+                f.pack();
+                f.setVisible(true);
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Item was not purchased here.");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(rOrders.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

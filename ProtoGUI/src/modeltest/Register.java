@@ -242,7 +242,7 @@ public class Register {
         }
     }
     
-    public void returnItems() throws ClassNotFoundException, SQLException
+    public boolean returnItems() throws ClassNotFoundException, SQLException
     {
        Statement s = conn.createStatement();
        if(ret != null)
@@ -253,8 +253,7 @@ public class Register {
                 String sql = "SELECT returned FROM scrum.salelines WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
                 ResultSet rst = s.executeQuery(sql);
                 if(!rst.next()){
-                    JOptionPane.showMessageDialog(null,"Product has not been purchased here.");
-                    //do more
+                    return false;
                 }
                 else{
                     if(!rst.getBoolean("returned")){
@@ -265,12 +264,13 @@ public class Register {
                         rs = s.executeUpdate(sql);
                         sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
                         rs = s.executeUpdate(sql);
+                        
                     }
                 }
             }
-       }
-       else
-       {
+        }
+        else
+        {
             for(int i = 0; i < rental.getRentalLine().size(); i++)
             {
                 String id = rental.getRentalLine().get(i).getID();
@@ -279,7 +279,7 @@ public class Register {
                 ResultSet rst = s.executeQuery(sql);
                 if(!rst.next()){
                     JOptionPane.showMessageDialog(null,"Product has not been rented here.");
-                    //do more
+                    return false;
                 }
                 else{
                     int q = rental.getRentalLine().get(i).getQuantity();
@@ -289,7 +289,8 @@ public class Register {
                     rs = s.executeUpdate(sql);
                 }
             }
-       } 
+        } 
+        return true;
     }
     
     public void purchaseItems() throws ClassNotFoundException, SQLException
