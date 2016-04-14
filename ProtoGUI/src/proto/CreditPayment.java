@@ -102,7 +102,8 @@ public class CreditPayment extends javax.swing.JFrame {
             Connection conn = store.getConn();
             Statement s = conn.createStatement();
             String sql = "SELECT expdate FROM scrum.creditinfo where creditnum = '" + ccnField.getText() + "'";
-            ResultSet rs = s.executeQuery(sql);
+            ResultSet rs = null;
+            rs = s.executeQuery(sql);
             if(!rs.next()){
                 JOptionPane.showMessageDialog(null, "Credit Card Number is Not Recognized. Try Again.");
             }

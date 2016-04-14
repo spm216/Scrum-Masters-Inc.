@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -249,11 +250,23 @@ public class Register {
             for(int i = 0; i < ret.getList().size(); i++)
             {
                 String id = ret.getList().get(i).getID();
-                int q = ret.getList().get(i).getQty();
-                String sql = "INSERT INTO scrum.retlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
-                int rs = s.executeUpdate(sql);
-                sql = "UPDATE scrum.retinv SET qty = qty + "+q+" WHERE itemid = " + id;
-                rs = s.executeUpdate(sql);
+                String sql = "SELECT returned FROM scrum.salelines WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
+                ResultSet rst = s.executeQuery(sql);
+                if(!rst.next()){
+                    JOptionPane.showMessageDialog(null,"Product has not been purchased here.");
+                    //do more
+                }
+                else{
+                    if(!rst.getBoolean("returned")){
+                        int q = ret.getList().get(i).getQty();
+                        sql = "INSERT INTO scrum.returnlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ")";
+                        int rs = s.executeUpdate(sql);
+                        sql = "UPDATE scrum.returninv SET qty = qty + "+q+" WHERE itemid = " + id;
+                        rs = s.executeUpdate(sql);
+                        sql = "UPDATE scrum.salelines SET returned = True WHERE transid = " + ret.getTransNum() + " AND itemid = " + id;
+                        rs = s.executeUpdate(sql);
+                    }
+                }
             }
        }
        else
@@ -261,11 +274,20 @@ public class Register {
             for(int i = 0; i < rental.getRentalLine().size(); i++)
             {
                 String id = rental.getRentalLine().get(i).getID();
-                int q = rental.getRentalLine().get(i).getQuantity();
-                String sql = "INSERT INTO scrum.rentlines VALUES (" + i + ", " + ret.getTransNum() + ", " + id + ", " + q + ", CURRENT_DATE)";
-                int rs = s.executeUpdate(sql);
-                sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE itemid = " + id;
-                rs = s.executeUpdate(sql);
+                int transNum= ret.getTransNum();
+                String sql = "SELECT * FROM scrum.rentlines WHERE transid = " + transNum + " AND itemid = " + id;
+                ResultSet rst = s.executeQuery(sql);
+                if(!rst.next()){
+                    JOptionPane.showMessageDialog(null,"Product has not been rented here.");
+                    //do more
+                }
+                else{
+                    int q = rental.getRentalLine().get(i).getQuantity();
+                    sql = "UPDATE scrum.rentlines SET returned = True WHERE transid = " + transNum + " and itemid = " + id;
+                    int rs = s.executeUpdate(sql);
+                    sql = "UPDATE scrum.inventory SET qty = qty + "+q+" WHERE transid = " + transNum + " and itemid = " + id;
+                    rs = s.executeUpdate(sql);
+                }
             }
        } 
     }
@@ -284,9 +306,9 @@ public class Register {
                 rs.next();
                 int lineID = rs.getInt("lines");
                 lineID++;
-                sql = "INSERT INTO scrum.salelines VALUES (" + lineID + ", " + sale.getTransID() + ", " + id + ", " + q + ", false)";
+                sql = "INSERT INTO scrum.salelines VALUES (" + lineID + ", " + sale.getTransID() + ", " + id + ", " + q + ", False)";
                 s.executeUpdate(sql);
-                sql = "UPDATE scrum.inventory SET qty = qty - "+q+" WHERE itemid = " + id;
+                sql = "UPDATE scrum.inventory SET qty = qty - "+ q +" WHERE itemid = " + id;
                 s.executeUpdate(sql);
             }
        }
