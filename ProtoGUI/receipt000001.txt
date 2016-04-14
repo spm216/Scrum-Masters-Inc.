@@ -1,10 +1,11 @@
       SCRUM-MASTERS-INC.      
             000001            
-  Wed, 13 Apr 2016 17:55:09   
-              1               
+  Wed, 13 Apr 2016 20:21:20   
+              4               
 
-       Apple(x2)	 2.00        
-
-        Subtotal	 2.00        
-       Sales Tax	 0.14        
-      Balance Due	 2.14             Amount Paid	 2.14              Change Due	 0.00       
+      Shovel(x2)	-28.00       
+       Subtotal	-28.00        
+       Sales Tax	-1.96        
+      Balance Due	-29.96      
+      Amount Paid	 5.00       
+       Change Due	34.96       

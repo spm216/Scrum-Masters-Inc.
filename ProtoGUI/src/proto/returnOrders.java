@@ -159,7 +159,7 @@ public class returnOrders extends javax.swing.JFrame {
             Logger.getLogger(Orders.class.getName()).log(Level.SEVERE, null, ex);
         }
         orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t-" + String.format("%5.2f", line.getSubtotal()) + "\r\n");
-        totalTextField.setText(String.format("%5.2f", reg.getReturnTotal()));
+        totalTextField.setText(String.format("%5.2f", reg.getReturnTotal()*1.07));
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed

@@ -232,7 +232,9 @@ public class Register {
                 }
                 writer.write(center(String.format("Subtotal\t%5.2f", this.getReturnTotal())) + "\r\n");
                 writer.write(center(String.format("Sales Tax\t%5.2f", this.getReturnTotal()*.07)) + "\r\n");
-                writer.write(center(String.format("Balance Due\t%5.2f", this.getReturnTotal()*1.07)));
+                writer.write(center(String.format("Balance Due\t%5.2f", this.getReturnTotal()*1.07)) + "\r\n");
+                writer.write(center(String.format("Amount Paid\t%5.2f", payment)) + "\r\n");
+                writer.write(center(String.format("Change Due\t%5.2f", payment-this.getReturnTotal()*1.07)));
             } catch (IOException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
