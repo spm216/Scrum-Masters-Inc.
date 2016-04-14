@@ -1,0 +1,11 @@
+      SCRUM-MASTERS-INC.      
+            000035            
+  Wed, 13 Apr 2016 22:27:54   
+              1               
+
+       bread(x1)	- 5.00       
+        Subtotal	-5.00        
+       Sales Tax	-0.35        
+      Balance Due	-5.35       
+      Amount Paid	 0.00       
+       Change Due	 5.35       

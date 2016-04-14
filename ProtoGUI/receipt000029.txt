@@ -1,0 +1,11 @@
+      SCRUM-MASTERS-INC.      
+            000029            
+  Wed, 13 Apr 2016 22:20:00   
+              1               
+
+       Pizza(x9)	-49.95       
+       Subtotal	-49.95        
+       Sales Tax	-3.50        
+      Balance Due	-53.45      
+      Amount Paid	 0.00       
+       Change Due	53.45       

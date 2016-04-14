@@ -215,6 +215,8 @@ public class Total extends javax.swing.JFrame {
         CreditPayment f = new CreditPayment(store);
         f.pack();
         f.setVisible(true);
+        paymentTextField.setText(totalTextField.getText());
+        changeTextField.setText("0.00");
     }//GEN-LAST:event_creditButtonActionPerformed
 
     /**

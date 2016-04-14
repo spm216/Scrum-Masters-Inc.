@@ -160,17 +160,22 @@ public class returnTotal extends javax.swing.JFrame {
     }//GEN-LAST:event_cashButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
-        reg.printReceipt(5);
-        try{
-            reg.returnItems(transID);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         CreditPayment g = new CreditPayment(store);
+        g.pack();
+        g.setVisible(true);
         g.addWindowListener(new WindowAdapter(){
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosed(WindowEvent e){
+                
+                reg.printReceipt(0);
+                try{
+                    reg.returnItems(transID);
+                } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(returnTotal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 reg.endSale();
                 if (reg.getLevel() > 1){
                     NewSaleManager f = new NewSaleManager(store);
