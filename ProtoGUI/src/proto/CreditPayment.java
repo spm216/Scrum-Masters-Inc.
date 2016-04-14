@@ -106,12 +106,14 @@ public class CreditPayment extends javax.swing.JFrame {
             rs = s.executeQuery(sql);
             if(!rs.next()){
                 JOptionPane.showMessageDialog(null, "Credit Card Number is Not Recognized. Try Again.");
+                ccnField.setText("");
             }
             else{
                 Date expdate = rs.getDate("expdate");
                 Date today = new Date();
                 if(today.after(expdate)){
                     JOptionPane.showMessageDialog(null, "Credit Card is Expired. Try Again.");
+                    ccnField.setText("");
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Credit Card Accepted");
