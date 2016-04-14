@@ -266,9 +266,16 @@ public class rOrders extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(rOrders.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getDays()+"\t"+String.format("%5.2f", line.getSubtotal()) + "\r\n");
-        totalTextField.setText(String.format("%5.2f", reg.getRTotal()));
+        if(line.getDesc() == null) {
+            JOptionPane.showMessageDialog(null, "Invalid Item ID");
+        }
+        else {
+            orderList.append(line.getDesc() + "(x" + qtyTextField.getText() + ")\t" + line.getDays()+"\t"+String.format("%5.2f", line.getSubtotal()) + "\r\n");
+            totalTextField.setText(String.format("%5.2f", reg.getRTotal()));
+        }
+        idTextField.setText("");
+        qtyTextField.setText("");
+        dayTextField.setText("");
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void dayTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTextFieldActionPerformed
