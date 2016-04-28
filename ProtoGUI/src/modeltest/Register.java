@@ -315,6 +315,14 @@ public class Register {
                 s.executeUpdate(sql);
                 sql = "UPDATE scrum.inventory SET qty = qty - "+ q +" WHERE itemid = " + id;
                 s.executeUpdate(sql);
+                sql = "SELECT qty FROM scrum.inventory WHERE itemid = " + id;
+                rs = s.executeQuery(sql);
+                rs.next();
+                int bQty = rs.getInt("qty");
+                if(bQty < 0)
+                {
+                JOptionPane.showMessageDialog(null, "Item ID " + id + " has been backordered");
+                }
             }
        }
        else
