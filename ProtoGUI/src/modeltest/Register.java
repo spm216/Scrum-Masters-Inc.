@@ -254,6 +254,90 @@ public class Register {
         }
     }
     
+    public void printReceipt(String ccn) {
+        if(sale != null)
+        {
+            int transNum = sale.getTransID(); //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
+            ArrayList<SalesLineItem> salesLine = sale.getList();
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
+                writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
+                writer.write(center(trans + "") + "\r\n");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                writer.write(center(dateFormat.format(sale.getTime())) + "\r\n");
+                writer.write(center(userName.toUpperCase()) + "\r\n\r\n");
+                for(int i = 0; i < salesLine.size(); i++) {
+                    SalesLineItem temp = salesLine.get(i);
+                    writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t%5.2f", temp.getSubtotal())) + "\r\n"); 
+                }
+                Long cardNum = Long.parseLong(ccn)%10000;
+                int last4Digits = cardNum.intValue();
+                writer.write("\r\n" + center(String.format("Credit Card: XXXXXXXXXXXX%d", last4Digits)) + "\r\n");
+                writer.write(center(String.format("Subtotal\t%5.2f", this.getTotal())) + "\r\n");
+                writer.write(center(String.format("Sales Tax\t%5.2f", this.getTotal()*.07)) + "\r\n");
+                writer.write(center(String.format("Balance Due\t%5.2f", this.getTotal()*1.07)) + "\r\n");
+                writer.write(center(String.format("Amount Paid\t%5.2f", this.getTotal()*1.07)) + "\r\n");
+                writer.write(center(String.format("Change Due\t0.00")));
+            } catch (IOException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if(rental != null)
+        {
+            int transNum = rental.getTransID(); //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
+            ArrayList<RentalLineItem> rentalLine = rental.getRentalLine();
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
+            writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
+            writer.write(center(trans + "") + "\r\n");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+            writer.write(center(dateFormat.format(rental.getTime())) + "\r\n");
+            writer.write(center(userName.toUpperCase()) + "\r\n\r\n");
+            for(int i = 0; i < rentalLine.size(); i++) {
+                RentalLineItem temp = rentalLine.get(i);
+                writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQuantity() + ")" + "\t%5.2f", temp.getSubtotal())) + "\tReturn Due: "+ dateFormat.format(temp.dueDate())+ "\r\n"); 
+            }
+            Long cardNum = Long.parseLong(ccn)%10000;
+            int last4Digits = cardNum.intValue();
+            writer.write("\r\n" + center(String.format("Credit Card: XXXXXXXXXXXX%d", last4Digits)) + "\r\n");
+            writer.write(center(String.format("Subtotal\t%5.2f", this.getRTotal())) + "\r\n");
+            writer.write(center(String.format("Sales Tax\t%5.2f", this.getRTotal()*.07)) + "\r\n");
+            writer.write(center(String.format("Balance Due\t%5.2f", this.getRTotal()*1.07)) + "\r\n");
+            writer.write(center(String.format("Amount Paid\t%5.2f", this.getRTotal()*1.07)) + "\r\n");
+            writer.write(center(String.format("Change Due\t%5.2f0.00")));
+            } catch (IOException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+        {
+            int transNum = ret.getTransID(); //TODO: generate actual transaction number earlier
+            String trans = String.format("%06d", transNum);
+            ArrayList<SalesLineItem> salesLine = ret.getList();
+            try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("receipt" + trans + ".txt"), "utf-8"))) {
+                writer.write(center("SCRUM-MASTERS-INC.") + "\r\n");
+                writer.write(center(trans + "") + "\r\n");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                writer.write(center(dateFormat.format(ret.getTime())) + "\r\n");
+                writer.write(center(userName.toUpperCase()) + "\r\n\r\n");
+                for(int i = 0; i < salesLine.size(); i++) {
+                    SalesLineItem temp = salesLine.get(i);
+                    writer.write(center(String.format(temp.getDesc() + "(x" + temp.getQty() + ")" + "\t-%5.2f", temp.getSubtotal())) + "\r\n"); 
+                }
+                Long cardNum = Long.parseLong(ccn)%10000;
+                int last4Digits = cardNum.intValue();
+                writer.write("\r\n" + center(String.format("Credit Card: XXXXXXXXXXXX%d", last4Digits)) + "\r\n");
+                writer.write(center(String.format("Subtotal\t%5.2f", this.getReturnTotal())) + "\r\n");
+                writer.write(center(String.format("Sales Tax\t%5.2f", this.getReturnTotal()*.07)) + "\r\n");
+                writer.write(center(String.format("Balance Due\t%5.2f", this.getReturnTotal()*1.07)) + "\r\n");
+                writer.write(center(String.format("Amount Paid\t%5.2f", this.getReturnTotal()*1.07)) + "\r\n");
+                writer.write(center(String.format("Change Due\t%0.00")));
+            } catch (IOException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     public void returnItems(String transID) throws ClassNotFoundException, SQLException
     {
        Statement s = conn.createStatement();

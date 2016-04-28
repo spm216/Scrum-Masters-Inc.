@@ -123,6 +123,7 @@ public class CreditPayment extends javax.swing.JFrame {
                 else{
                     sql = "UPDATE scrum.transactions SET creditnum = '" + ccnField.getText() + "' WHERE transid = " + transID;
                     s.executeUpdate(sql);
+                    store.getReg().printReceipt(ccnField.getText());
                     JOptionPane.showMessageDialog(null, "Credit Card Accepted");
                     dispose();
                 }
